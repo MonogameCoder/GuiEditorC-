@@ -21,7 +21,7 @@ public:
 	virtual float height() override;	
 	virtual Object* hitTest(sf::Vector2i mousePosition);
 	bool contains(sf::Vector2i& position);
-
+	void Setup();
 private:
 	std::shared_ptr<sf::Sprite> _sprite;
 	sf::Texture _texture;

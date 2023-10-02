@@ -87,6 +87,9 @@ bool Sprite::contains(sf::Vector2i& position)
 {	
 	return (*_sprite).getTextureRect().contains(position);
 }
+void Sprite::Setup()
+{
+}
 shared_ptr<sf::Sprite> Sprite::getSprite()
 {
 	return _sprite;
