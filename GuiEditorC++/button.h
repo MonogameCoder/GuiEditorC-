@@ -35,13 +35,14 @@
 		sf::Sprite mCurrentSprite;
 		sf::Texture mTexture;
 		sf::Texture mTextureClicked;
-	private:		
-		bool contains(const sf::Vector2i& position);
 		bool mActive;
 		bool mClicked;
 		sf::Vector2i mPosition;
 		Label mLabel;
 
+	private:		
+		bool contains(const sf::Vector2i& position);
+		
 	};
 
 #endif
