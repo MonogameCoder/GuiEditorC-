@@ -1,34 +1,32 @@
 #include "sprite.h"
 #include <stdlib.h>
 using namespace std;
-Sprite::Sprite(std::string filename) noexcept 
-	: _position(sf::Vector2i::Vector2(0, 0)),
-	  _active(true)
+Sprite::Sprite(std::string filename) noexcept
+	: mPosition(sf::Vector2i::Vector2(0, 0)),
+	  mActive(true)
 {
-	_texture.loadFromFile(filename);
-	_sprite = make_shared<sf::Sprite>(_texture);
-	_rectangle = new sf::IntRect(_position.x, _position.y, _texture.getSize().x, _texture.getSize().y);
+	loadSprite(filename);
+	mSprite = make_shared<sf::Sprite>(mTexture);
+	
 }
 
 Sprite::Sprite(const Sprite& rhs) :
-	_sprite(rhs._sprite),
-	_rectangle(rhs._rectangle),
-	_active(rhs._active)
+	mSprite(rhs.mSprite),
+	mActive(rhs.mActive)
 {
 
 }
 
 Sprite::Sprite(Sprite&& rhs) noexcept
 {
-	if (rhs._sprite != nullptr)
+	if (rhs.mSprite != nullptr)
 	{
-		_sprite = move(rhs._sprite);
+		mSprite = move(rhs.mSprite);
 		
 		
 	}
-	_rectangle = move(rhs._rectangle);
-	_active = move(rhs._active);
-	rhs._sprite = nullptr;
+	mActive = move(rhs.mActive);
+	rhs.mSprite = nullptr;
 }
 
 Sprite::~Sprite()
@@ -37,44 +35,54 @@ Sprite::~Sprite()
 
 Sprite& Sprite::operator=(const Sprite& rhs)
 {
-	_sprite = rhs._sprite;
+	mSprite = rhs.mSprite;
 	return *this;
 }
 
 Sprite& Sprite::operator=( Sprite&& rhs) noexcept
 {
-	if (rhs._sprite != nullptr)
+	if (rhs.mSprite != nullptr)
 	{
-		_sprite = move(rhs._sprite);
+		mSprite = move(rhs.mSprite);
 	}
 
-	rhs._sprite = nullptr;
+	rhs.mSprite = nullptr;
 	return *this;
 }
 
 void Sprite::draw(sf::RenderWindow& window)
 {
 	window.clear(sf::Color::Black);	
-	window.draw(*_sprite);	
+	window.draw(*mSprite);	
 	window.display();
 }
 
-void Sprite::update()
+void Sprite::update(float dt)
 {
+	
+	
 }
 
 float Sprite::width()
 {
-	return _sprite->getLocalBounds().width;
+	return mSprite->getLocalBounds().width;
 }
 
 float Sprite::height()
 {
-	return _sprite->getLocalBounds().height;
+	return mSprite->getLocalBounds().height;
 }
-Object* Sprite::hitTest(sf::Vector2i mousePosition)
+sf::Vector2i Sprite::getPosition()
 {
-	if (_active)
+	return sf::Vector2i(mSprite->getPosition());
+}
+void Sprite::moveObject(const sf::Vector2f amount)
+{
+	mSprite->move(sf::Vector2f(amount));
+}
+Object* Sprite::hitTest(const sf::Vector2i mousePosition)
+{
+	if (mActive)
 	{
 		if (contains(mousePosition))
 		{
@@ -83,16 +91,25 @@ Object* Sprite::hitTest(sf::Vector2i mousePosition)
 	}
 	return NULL;
 }
-bool Sprite::contains(sf::Vector2i& position)
+bool Sprite::contains(const sf::Vector2i& position)
 {	
-	return (*_sprite).getTextureRect().contains(position);
+	sf::FloatRect boundingBox = mSprite->getGlobalBounds();
+	return boundingBox.contains(sf::Vector2f(position));
 }
 void Sprite::Setup()
 {
 }
-shared_ptr<sf::Sprite> Sprite::getSprite()
+const shared_ptr<sf::Sprite> Sprite::getSprite() const
 {
-	return _sprite;
+	return mSprite;
+}
+
+void Sprite::loadSprite(std::string filename)
+{
+	if (!mTexture.loadFromFile(filename))
+	{
+		exit(0);
+	}
 }
 
 

@@ -27,6 +27,15 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="label.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="label.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="object.h">
@@ -35,10 +44,27 @@
     <ClInclude Include="sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\ninja.jpg">
       <Filter>assets</Filter>
     </Image>
+    <Image Include="assets\button0.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\button1.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\Button0clicked.png">
+      <Filter>assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\Arial.ttf">
+      <Filter>assets</Filter>
+    </Font>
   </ItemGroup>
 </Project>

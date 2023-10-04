@@ -133,16 +133,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="button.cpp" />
+    <ClCompile Include="label.cpp" />
+    <ClCompile Include="label.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="button.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="sprite.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\button0.png" />
+    <Image Include="assets\Button0clicked.png" />
+    <Image Include="assets\button1.png" />
     <Image Include="assets\ninja.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\Arial.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

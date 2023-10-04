@@ -12,7 +12,7 @@ void Object::draw(sf::RenderWindow& window)
 {
 }
 
-void Object::update()
+void Object::update(float dt)
 {
 }
 

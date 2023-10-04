@@ -1,35 +1,44 @@
+#ifndef SPRITE
+#define SPRITE
+
 #include "object.h"
 #include <string.h>
 
-#include <iostream>
-#include <optional>
 
 class Sprite: public Object
 {
 public:
-	Sprite(std::string filename) noexcept;  
+	explicit Sprite(std::string filename) noexcept;
 	Sprite(const Sprite& rhs);
 	Sprite(Sprite&& rhs) noexcept;
-	
+
 	virtual ~Sprite();
 	Sprite& operator =(const Sprite& rhs);
-	Sprite& operator=(Sprite&& rhs) noexcept ;
+	Sprite& operator=(Sprite&& rhs) noexcept;
 
+
+public:
 	virtual void draw(sf::RenderWindow& window) override;
-	virtual void update() override;
+	virtual void update(float dt) override;	
 	virtual float width() override;
 	virtual float height() override;	
-	virtual Object* hitTest(sf::Vector2i mousePosition);
-	bool contains(sf::Vector2i& position);
-	void Setup();
+	virtual Object* hitTest(const sf::Vector2i mousePosition);
+	sf::Vector2i getPosition();
+	void moveObject(const sf::Vector2f amount);		
+	void Setup();	
+	const std::shared_ptr<sf::Sprite> getSprite() const;
+	void loadSprite(std::string filename);
 private:
-	std::shared_ptr<sf::Sprite> _sprite;
-	sf::Texture _texture;
-	sf::IntRect* _rectangle;
-public:
-	std::shared_ptr<sf::Sprite> getSprite();
-	bool _active;
-	sf::Vector2i _position;
+	std::shared_ptr<sf::Sprite> mSprite;
+	sf::Texture mTexture;
+
+private:
+	
+	bool mActive;
+	sf::Vector2i mPosition;
+protected:
+	bool contains(const sf::Vector2i& position);
 
 
 };
+#endif
