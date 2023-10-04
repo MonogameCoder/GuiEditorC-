@@ -101,7 +101,7 @@ float Button::height()
 	return getButton().getSprite().get()->getLocalBounds().height;
 }
 
-Object* Button::hitTest(const sf::Vector2i mousePosition)
+Object* Button::hitTest(const sf::Vector2f mousePosition)
 {
 	if (mActive)
 	{
@@ -138,7 +138,7 @@ void Button::setClicked(bool clicked)
 {
 	mClicked = clicked;
 }
-bool Button::contains(const sf::Vector2i& position)
+bool Button::contains(const sf::Vector2f& position)
 {
 	return Sprite::contains(position);
 }

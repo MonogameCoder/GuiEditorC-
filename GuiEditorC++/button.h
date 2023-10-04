@@ -24,7 +24,7 @@
 		virtual void update(float dt) override;
 		virtual float width() override;
 		virtual float height() override;
-		virtual Object* hitTest(const sf::Vector2i mousePosition) override;
+		virtual Object* hitTest(const sf::Vector2f mousePosition) override;
 		sf::Vector2i getPosition();
 		void moveObject(const sf::Vector2f amount);
 		void Setup();
@@ -41,7 +41,7 @@
 		Label mLabel;
 
 	private:		
-		bool contains(const sf::Vector2i& position);
+		bool contains(const sf::Vector2f& position);
 		
 	};
 

@@ -22,7 +22,7 @@ public:
 	virtual void update(float dt) override;	
 	virtual float width() override;
 	virtual float height() override;	
-	virtual Object* hitTest(const sf::Vector2i mousePosition);
+	virtual Object* hitTest(const sf::Vector2f mousePosition);
 	sf::Vector2i getPosition();
 	void moveObject(const sf::Vector2f amount);		
 	void Setup();	
@@ -37,7 +37,7 @@ private:
 	bool mActive;
 	sf::Vector2i mPosition;
 protected:
-	bool contains(const sf::Vector2i& position);
+	bool contains(const sf::Vector2f& position);
 
 
 };

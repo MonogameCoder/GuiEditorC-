@@ -78,9 +78,9 @@ sf::Vector2i Sprite::getPosition()
 }
 void Sprite::moveObject(const sf::Vector2f amount)
 {
-	mSprite->move(sf::Vector2f(amount));
+	mSprite->move(amount);
 }
-Object* Sprite::hitTest(const sf::Vector2i mousePosition)
+Object* Sprite::hitTest(const sf::Vector2f mousePosition)
 {
 	if (mActive)
 	{
@@ -91,10 +91,9 @@ Object* Sprite::hitTest(const sf::Vector2i mousePosition)
 	}
 	return NULL;
 }
-bool Sprite::contains(const sf::Vector2i& position)
+bool Sprite::contains(const sf::Vector2f& position)
 {	
-	sf::FloatRect boundingBox = mSprite->getGlobalBounds();
-	return boundingBox.contains(sf::Vector2f(position));
+	return mSprite->getGlobalBounds().contains(position);
 }
 void Sprite::Setup()
 {

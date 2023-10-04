@@ -19,7 +19,9 @@ int main()
     while (window.isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop
-        auto selected = (Button*)sprite.hitTest(sf::Mouse::getPosition(window));
+        auto pos = sf::Mouse::getPosition(window);
+        sf::Vector2f worldPos = window.mapPixelToCoords(pos);
+        auto selected = (Button*)sprite.hitTest(worldPos);
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -32,7 +34,7 @@ int main()
                 break;
             case sf::Event::MouseButtonPressed:
             {
-                if (event.key.code == sf::Mouse::Left)
+                if (event.key.code == sf::Mouse::Left && selected != NULL)
                 {
                     sprite.setClicked(true);
                 }
@@ -46,10 +48,11 @@ int main()
             }
         }
     
-   
+      
       
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
+          
             if (selected != NULL)
             {
                 sf::Vector2i currMousePos = sf::Mouse::getPosition(window);
