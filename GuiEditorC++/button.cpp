@@ -39,10 +39,10 @@ Button::Button(Button&& rhs) noexcept :	Sprite(rhs)
 {
 	if (rhs.mButtonClicked != nullptr)
 	{
-		mButtonClicked = move(rhs.mButtonClicked);
+		mButtonClicked = std::move(rhs.mButtonClicked);
 
 	}
-	mCurrentSprite = rhs.mCurrentSprite;
+	mCurrentSprite = std::move(rhs.mCurrentSprite);
 	mActive = rhs.mActive;
 	mClicked = rhs.mClicked;
 	rhs.mButtonClicked = nullptr;
