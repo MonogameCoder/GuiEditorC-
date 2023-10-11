@@ -21,27 +21,25 @@
 
 	public:
 		virtual void draw(sf::RenderWindow& window) override;
-		virtual void update(float dt) override;
+		virtual void update(sf::Int32 dt) override;
 		virtual float width() override;
 		virtual float height() override;
 		virtual Object* hitTest(const sf::Vector2f mousePosition) override;
+		virtual bool contains(const sf::Vector2f& position) override;
+		virtual void setPosition(sf::Vector2f position) override;
 		sf::Vector2i getPosition();
 		void moveObject(const sf::Vector2f amount);
 		void Setup();
 		const Sprite getButton() const;
 		void setClicked(bool clicked);
 	private:
-		std::shared_ptr<Sprite> mButtonClicked;
+		std::shared_ptr<Sprite> pButtonClicked;
 		sf::Sprite mCurrentSprite;
 		sf::Texture mTexture;
 		sf::Texture mTextureClicked;
-		bool mActive;
 		bool mClicked;
 		sf::Vector2i mPosition;
 		Label mLabel;
-
-	private:		
-		bool contains(const sf::Vector2f& position);
 		
 	};
 

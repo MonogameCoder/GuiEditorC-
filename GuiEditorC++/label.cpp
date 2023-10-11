@@ -34,7 +34,7 @@ void Label::draw(sf::RenderWindow& window)
 	
 }
 
-void Label::update(float dt)
+void Label::update(sf::Int32 dt)
 {
 }
 
@@ -57,6 +57,22 @@ sf::Vector2i Label::getPosition() const
 {
 	return (sf::Vector2i)mText.getPosition();
 }
+
+void Label::setPosition(sf::Vector2f position)
+{
+	mText.setPosition(position);
+}
+
+Object* Label::hitTest(const sf::Vector2f mousePosition)
+{
+	return nullptr;
+}
+
+bool Label::contains(const sf::Vector2f& position)
+{
+	return false;
+}
+
 
 void Label::setFontSize(int size)
 {

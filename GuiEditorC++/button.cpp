@@ -3,49 +3,54 @@
 #include <iostream>
 
 Button::Button::Button():
-	Sprite("assets/button0.png" ),
-	mActive(true)
+	Sprite("assets/button0.png" )
+	
 {
-	mButtonClicked = std::make_shared<Sprite>("assets/button0clicked.png");
+	pButtonClicked = std::make_shared<Sprite>("assets/button0clicked.png");
 	mCurrentSprite = *getSprite();
 	
 	mLabel.setFillColor(sf::Color::Black);
 	mLabel.setStyle(sf::Text::Style::Regular);
 	mLabel.setFontSize(16);
-	int x = mLabel.getText().getLocalBounds().width /2;
-	int y = mLabel.getText().getLocalBounds().height;
-	mLabel.setPosition(sf::Vector2i(getSprite()->getLocalBounds().width / 2.f - x, getSprite()->getLocalBounds().height / 2.f - y));
+	int width = mLabel.getText().getLocalBounds().width /2;
+	int height = mLabel.getText().getLocalBounds().height;
+
+	int centerX = getSprite()->getLocalBounds().width /2;
+	int centerY = getSprite()->getLocalBounds().height / 2;
+	
+	mLabel.setPosition(sf::Vector2i(centerX - width, centerY - height));
+
+	mActive = true;
 	
 }
 
 Button::Button(std::string filename) noexcept:
-	Sprite(filename),
-	mActive(true)
+	Sprite(filename)
 {
-	mButtonClicked = std::make_shared<Sprite>(filename + "clicked");
+	pButtonClicked = std::make_shared<Sprite>(filename + "clicked");
+	mActive = true;
 }
 
 Button::Button(const Button& rhs): 
 	Sprite(rhs),
-	mButtonClicked(rhs.mButtonClicked),
+	pButtonClicked(rhs.pButtonClicked),
 	mCurrentSprite(rhs.mCurrentSprite),
-	mActive(rhs.mActive),
 	mClicked(rhs.mClicked)
 {
-	
+	mActive = true;
 }
 
 Button::Button(Button&& rhs) noexcept :	Sprite(rhs)
 {
-	if (rhs.mButtonClicked != nullptr)
+	if (rhs.pButtonClicked != nullptr)
 	{
-		mButtonClicked = std::move(rhs.mButtonClicked);
+		pButtonClicked = std::move(rhs.pButtonClicked);
 
 	}
 	mCurrentSprite = std::move(rhs.mCurrentSprite);
 	mActive = rhs.mActive;
 	mClicked = rhs.mClicked;
-	rhs.mButtonClicked = nullptr;
+	rhs.pButtonClicked = nullptr;
 }
 
 Button::~Button()
@@ -54,36 +59,36 @@ Button::~Button()
 
 Button& Button::operator=(const Button& rhs)
 {
-	mButtonClicked = rhs.mButtonClicked;
+	pButtonClicked = rhs.pButtonClicked;
 	return *this;
 }
 
 Button& Button::operator=(Button&& rhs) noexcept 
 {
-	if (rhs.mButtonClicked != nullptr)
+	if (rhs.pButtonClicked != nullptr)
 	{
-		mButtonClicked = move(rhs.mButtonClicked);
+		pButtonClicked = move(rhs.pButtonClicked);
 	}
 	
-	rhs.mButtonClicked = nullptr;
+	rhs.pButtonClicked = nullptr;
 	return *this;
 }
 
 void Button::draw(sf::RenderWindow& window)
 {
 
-	window.clear(sf::Color::Black);
+	
 	// draw everything here...	
 	window.draw(mCurrentSprite);
 	mLabel.draw(window);
-	window.display();
+	
 }
 
-void Button::update(float dt)
+void Button::update(sf::Int32 dt)
 {	
 	if (mClicked)
 	{
-		mCurrentSprite = *mButtonClicked->getSprite();
+		mCurrentSprite = *pButtonClicked->getSprite();
 	}
 	else
 	{
@@ -113,6 +118,15 @@ Object* Button::hitTest(const sf::Vector2f mousePosition)
 	return NULL;
 }
 
+void Button::setPosition(sf::Vector2f position)
+{
+	mCurrentSprite.setPosition(position);
+	int width = mLabel.getText().getLocalBounds().width /2;
+	int height = mLabel.getText().getLocalBounds().height /2;
+
+	mLabel.setPosition(mCurrentSprite.getPosition() + sf::Vector2f(width, height));
+}
+
 sf::Vector2i Button::getPosition()
 {
 	return sf::Vector2i(getButton().getSprite().get()->getPosition());
@@ -120,7 +134,7 @@ sf::Vector2i Button::getPosition()
 
 void Button::moveObject(const sf::Vector2f amount)
 {
-	mButtonClicked->moveObject(amount);
+	pButtonClicked->moveObject(amount);
 	Sprite::moveObject(amount);
 	mLabel.moveObject(amount);
 }

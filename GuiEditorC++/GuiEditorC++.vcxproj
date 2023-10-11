@@ -122,6 +122,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Program Files\Microsoft Visual Studio\2022\Community\SFML\include;</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,6 +135,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="button.cpp" />
+    <ClCompile Include="container.cpp" />
+    <ClCompile Include="frame.cpp" />
     <ClCompile Include="label.cpp" />
     <ClCompile Include="label.h" />
     <ClCompile Include="main.cpp" />
@@ -142,6 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="button.h" />
+    <ClInclude Include="container.h" />
+    <ClInclude Include="frame.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="sprite.h" />
   </ItemGroup>
@@ -150,6 +155,7 @@
     <Image Include="assets\Button0clicked.png" />
     <Image Include="assets\button1.png" />
     <Image Include="assets\ninja.jpg" />
+    <Image Include="assets\UItoolboxTX.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\Arial.ttf" />

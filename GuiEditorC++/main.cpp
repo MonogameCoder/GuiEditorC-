@@ -1,8 +1,10 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Clock.hpp>
 #include <iostream>
 #include "sprite.h"
 #include "button.h"
-#include <SFML/System/Clock.hpp>
+#include "frame.h"
+
 
 
 int main()
@@ -12,7 +14,12 @@ int main()
     //window.setFramerateLimit(120);
     sf::Clock clock;
     
-    Button sprite;
+    Button bt1;
+    Button bt2;
+    Button bt3;
+    Frame frame;
+    frame.addItem(sf::Vector2i(32, 32), bt1);
+    frame.addItem(sf::Vector2i(128, 128), bt2);
     sf::Vector2i lastMousePos = sf::Mouse::getPosition(window);
 
     // run the program as long as the window is open
@@ -21,7 +28,7 @@ int main()
         // check all the window's events that were triggered since the last iteration of the loop
         auto pos = sf::Mouse::getPosition(window);
         sf::Vector2f worldPos = window.mapPixelToCoords(pos);
-        auto selected = (Button*)sprite.hitTest(worldPos);
+        auto selected = (Button*)bt3.hitTest(worldPos);
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -36,13 +43,13 @@ int main()
             {
                 if (event.key.code == sf::Mouse::Left && selected != NULL)
                 {
-                    sprite.setClicked(true);
+                    bt3.setClicked(true);
                 }
             }
             break;
             case sf::Event::MouseButtonReleased:
             {
-                sprite.setClicked(false);
+                bt3.setClicked(false);
             }
             break;
             }
@@ -66,13 +73,15 @@ int main()
         lastMousePos = sf::Mouse::getPosition(window);
 
         sf::Time time = clock.getElapsedTime();
-        //std::cout << time.asMilliseconds() << std::endl;
-        sprite.update(time.asMilliseconds());
+      
+        bt3.update(time.asMilliseconds());
+        frame.update(time.asMilliseconds());
         clock.restart();
       
-
-     
-        sprite.draw(window);
+        window.clear(sf::Color::Black);
+        bt3.draw(window);
+        frame.draw(window);
+        window.display();
     }
 
     return 0;

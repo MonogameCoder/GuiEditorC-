@@ -36,6 +36,12 @@
     <ClCompile Include="label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="frame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="container.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="object.h">
@@ -45,6 +51,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="container.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,6 +71,9 @@
       <Filter>assets</Filter>
     </Image>
     <Image Include="assets\Button0clicked.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\UItoolboxTX.png">
       <Filter>assets</Filter>
     </Image>
   </ItemGroup>

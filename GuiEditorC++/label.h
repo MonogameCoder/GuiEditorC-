@@ -18,11 +18,14 @@ public:
 
 public:
 	virtual void draw(sf::RenderWindow& window) override;
-	virtual void update(float dt) override;
+	virtual void update(sf::Int32 dt) override;
 	virtual float width() override;
 	virtual float height()  override;
 	sf::Text getText() const;
 	sf::Vector2i getPosition() const;
+	virtual void setPosition(sf::Vector2f position) override;
+	virtual Object* hitTest(const sf::Vector2f mousePosition) override;
+	virtual bool contains(const sf::Vector2f& position) override;
 	void setFontSize(int size);
 	void setFillColor(sf::Color color);
 	void setStyle(sf::Text::Style style);

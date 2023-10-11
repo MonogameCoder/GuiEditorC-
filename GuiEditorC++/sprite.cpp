@@ -2,31 +2,31 @@
 #include <stdlib.h>
 using namespace std;
 Sprite::Sprite(std::string filename) noexcept
-	: mPosition(sf::Vector2i::Vector2(0, 0)),
-	  mActive(true)
+	: mPosition(sf::Vector2i::Vector2(0, 0))
+	 
 {
+	mActive = true;
 	loadSprite(filename);
-	mSprite = make_shared<sf::Sprite>(mTexture);
+	pSprite = make_shared<sf::Sprite>(mTexture);
 	
 }
 
 Sprite::Sprite(const Sprite& rhs) :
-	mSprite(rhs.mSprite),
-	mActive(rhs.mActive)
+	pSprite(rhs.pSprite)
 {
-
+	mActive = true;
 }
 
 Sprite::Sprite(Sprite&& rhs) noexcept
 {
-	if (rhs.mSprite != nullptr)
+	if (rhs.pSprite != nullptr)
 	{
-		mSprite = move(rhs.mSprite);
+		pSprite = move(rhs.pSprite);
 		
 		
 	}
 	mActive = move(rhs.mActive);
-	rhs.mSprite = nullptr;
+	rhs.pSprite = nullptr;
 }
 
 Sprite::~Sprite()
@@ -35,29 +35,29 @@ Sprite::~Sprite()
 
 Sprite& Sprite::operator=(const Sprite& rhs)
 {
-	mSprite = rhs.mSprite;
+	pSprite = rhs.pSprite;
 	return *this;
 }
 
 Sprite& Sprite::operator=( Sprite&& rhs) noexcept
 {
-	if (rhs.mSprite != nullptr)
+	if (rhs.pSprite != nullptr)
 	{
-		mSprite = move(rhs.mSprite);
+		pSprite = move(rhs.pSprite);
 	}
 
-	rhs.mSprite = nullptr;
+	rhs.pSprite = nullptr;
 	return *this;
 }
 
 void Sprite::draw(sf::RenderWindow& window)
 {
-	window.clear(sf::Color::Black);	
-	window.draw(*mSprite);	
-	window.display();
+	
+	window.draw(*pSprite);	
+	
 }
 
-void Sprite::update(float dt)
+void Sprite::update(sf::Int32 dt)
 {
 	
 	
@@ -65,20 +65,20 @@ void Sprite::update(float dt)
 
 float Sprite::width()
 {
-	return mSprite->getLocalBounds().width;
+	return pSprite->getLocalBounds().width;
 }
 
 float Sprite::height()
 {
-	return mSprite->getLocalBounds().height;
+	return pSprite->getLocalBounds().height;
 }
 sf::Vector2i Sprite::getPosition()
 {
-	return sf::Vector2i(mSprite->getPosition());
+	return sf::Vector2i(pSprite->getPosition());
 }
 void Sprite::moveObject(const sf::Vector2f amount)
 {
-	mSprite->move(amount);
+	pSprite->move(amount);
 }
 Object* Sprite::hitTest(const sf::Vector2f mousePosition)
 {
@@ -91,16 +91,20 @@ Object* Sprite::hitTest(const sf::Vector2f mousePosition)
 	}
 	return NULL;
 }
+void Sprite::setPosition(sf::Vector2f position)
+{
+	pSprite->setPosition(position);
+}
 bool Sprite::contains(const sf::Vector2f& position)
 {	
-	return mSprite->getGlobalBounds().contains(position);
+	return pSprite->getGlobalBounds().contains(position);
 }
 void Sprite::Setup()
 {
 }
 const shared_ptr<sf::Sprite> Sprite::getSprite() const
 {
-	return mSprite;
+	return pSprite;
 }
 
 void Sprite::loadSprite(std::string filename)
