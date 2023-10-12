@@ -67,15 +67,12 @@ void Frame::update(sf::Int32 dt)
 		if (slot->pItem.get() != nullptr)
 		{
 			sf::Vector2i pos = pFrameBG->getPosition();
-			if (mMode == Mode::STATIC)
+			slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));
+			if (mMode == Mode::DYNAMIC)
 			{
-				slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));
+				slot->mPosition = slot->pItem->getPosition();			
 			}
-			else
-			{
-				slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));				
-				slot->mPosition = slot->pItem->getPosition();
-			}			
+	
 			slot->pItem->update(dt);
 		}
 	}
