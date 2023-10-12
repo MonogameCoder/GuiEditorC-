@@ -16,9 +16,9 @@ int main()
     
     Button bt1;
     Button bt2;
-    Button bt3;
+   // Button bt3;
     Frame frame;
-    frame.addItem(sf::Vector2i(32, 32), bt1);
+    frame.addItem(sf::Vector2i(32, 32),bt1);
     frame.addItem(sf::Vector2i(128, 128), bt2);
     sf::Vector2i lastMousePos = sf::Mouse::getPosition(window);
 
@@ -28,7 +28,7 @@ int main()
         // check all the window's events that were triggered since the last iteration of the loop
         auto pos = sf::Mouse::getPosition(window);
         sf::Vector2f worldPos = window.mapPixelToCoords(pos);
-        auto selected = (Button*)bt3.hitTest(worldPos);
+        auto selected = frame.hitTest(worldPos);
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -43,13 +43,28 @@ int main()
             {
                 if (event.key.code == sf::Mouse::Left && selected != NULL)
                 {
-                    bt3.setClicked(true);
+                  
+                  /*  if (typeid(selected) == typeid(Button))
+                    {*/
+                        Button* btn = static_cast<Button*>(selected);
+                        btn->setClicked(true);
+                    /*}*/
+                       
+                    
                 }
             }
             break;
             case sf::Event::MouseButtonReleased:
             {
-                bt3.setClicked(false);
+                if (selected != NULL)
+                {
+                   /* if (typeid(selected) == typeid(Button))
+                    {*/
+                        Button* btn = static_cast<Button*>(selected);
+                        btn->setClicked(false);
+                    /*}*/
+                }
+              
             }
             break;
             }
@@ -64,7 +79,8 @@ int main()
             {
                 sf::Vector2i currMousePos = sf::Mouse::getPosition(window);
 
-                selected->moveObject(sf::Vector2f(currMousePos - lastMousePos));
+                static_cast<Button*>(selected)->moveObject(sf::Vector2f(currMousePos - lastMousePos));
+                //selected->moveObject(sf::Vector2f(currMousePos - lastMousePos));
 
             }
         }
@@ -74,13 +90,14 @@ int main()
 
         sf::Time time = clock.getElapsedTime();
       
-        bt3.update(time.asMilliseconds());
+        //bt3.update(time.asMilliseconds());
         frame.update(time.asMilliseconds());
         clock.restart();
       
         window.clear(sf::Color::Black);
-        bt3.draw(window);
+       
         frame.draw(window);
+        //bt3.draw(window);
         window.display();
     }
 

@@ -26,12 +26,12 @@ public:
 	virtual void setPosition(sf::Vector2f position) override;
 	virtual Object* hitTest(const sf::Vector2f mousePosition) override;
 	virtual bool contains(const sf::Vector2f& position) override;
+	void moveObject(const sf::Vector2f amount) ;
 	void setFontSize(int size);
 	void setFillColor(sf::Color color);
 	void setStyle(sf::Text::Style style);
 	void setText(std::string text);
 	void setPosition(sf::Vector2i position);
-	void moveObject(sf::Vector2f amount);
 	void loadFont(std::string fontname);
 private:
 	sf::Text mText;

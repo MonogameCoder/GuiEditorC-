@@ -97,7 +97,7 @@ void Sprite::setPosition(sf::Vector2f position)
 }
 bool Sprite::contains(const sf::Vector2f& position)
 {	
-	return pSprite->getGlobalBounds().contains(position);
+	return pSprite->getLocalBounds().contains(position);
 }
 void Sprite::Setup()
 {

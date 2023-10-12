@@ -7,17 +7,17 @@
 class Frame : public Container
 {
 
-public:	
+public:
 	Frame();
 	~Frame();
 
 	Slot operator[](int index)
 	{
-		if(index >= 0)
+		if (index >= 0)
 			return mSlots.at(index);
 		return  mSlots[0];
 	}
-	
+
 	Slot operator[](Object& item)
 	{
 		for (unsigned int i = 0; i < mSlots.size(); i++)
@@ -42,6 +42,8 @@ public:
 	virtual float width() override;
 	virtual float height() override;
 	virtual void setPosition(sf::Vector2f position) override;
+
+	void moveObject(sf::Vector2f amount);
 
 };
 #endif

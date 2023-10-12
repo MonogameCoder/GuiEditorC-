@@ -40,12 +40,12 @@ void Label::update(sf::Int32 dt)
 
 float Label::width()
 {
-	return 0.0;
+	return mText.getLocalBounds().width;
 }
 
 float Label::height()
 {
-	return 0.0f;
+	return mText.getLocalBounds().height;
 }
 
 sf::Text Label::getText() const

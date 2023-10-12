@@ -24,7 +24,7 @@ void Frame::removeItem(Object& item)
 			break;
 		}
 
-	}	
+	}
 }
 
 bool Frame::contains(Object& item)
@@ -36,14 +36,19 @@ bool Frame::contains(Object& item)
 
 Object* Frame::hitTest(const sf::Vector2f mousePosition)
 {
-	for (unsigned int i = mSlots.size() -1; i > 0; i--)
+	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
 		Container::Slot slot = mSlots[i];
 
-		
-		return slot.pItem->hitTest(mousePosition);
+		if (slot.pItem->mActive)
+		{
+			if (slot.pItem->contains(mousePosition))
+			{
+				return slot.pItem.get();
+			}
+		}
 	}
-	
+
 	return NULL;
 }
 
@@ -60,8 +65,9 @@ void Frame::update(sf::Int32 dt)
 
 		if (slot.pItem.get() != nullptr)
 		{
-			
-			slot.pItem->setPosition(sf::Vector2f(pFrameBG->getPosition() + slot.mPosition));			
+			sf::Vector2i pos = pFrameBG->getPosition();
+			slot.pItem->setPosition(sf::Vector2f(pos + slot.mPosition));
+			slot.pItem->update(dt);
 
 		}
 	}
@@ -76,7 +82,7 @@ void Frame::draw(sf::RenderWindow& window)
 
 		if (slot.pItem.get() != nullptr)
 		{
-			
+
 			slot.pItem->draw(window);
 
 		}
@@ -101,4 +107,20 @@ float Frame::height()
 void Frame::setPosition(sf::Vector2f position)
 {
 	pFrameBG->setPosition(position);
+}
+
+void Frame::moveObject(sf::Vector2f amount)
+{
+	for (int i = 0; i < mSlots.size(); i++)
+	{
+		Container::Slot slot = mSlots[i];
+
+		if (slot.pItem.get() != nullptr)
+		{
+			sf::Vector2i pos = pFrameBG->getPosition();
+			slot.pItem->setPosition(sf::Vector2f(amount));
+
+
+		}
+	}
 }

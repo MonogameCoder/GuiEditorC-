@@ -17,9 +17,11 @@ public:
         Slot(sf::Vector2i position, Object& item) 
         {
             pItem.reset(dynamic_cast<Sprite*>(&item));
+            
             mPosition = position;
             mIndex = mGlobalIndex++;
             pItem->setIndex(mIndex);
+           
         }       
         bool operator==(const Object& rhs) const
         {
@@ -51,4 +53,5 @@ protected:
     std::shared_ptr<Sprite> pFrameBG;
 
 };
+
 #endif // ! CONTAINER

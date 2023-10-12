@@ -14,7 +14,8 @@ public:
 	virtual Object* hitTest(const sf::Vector2f mousePosition)  = 0;
 	virtual bool contains(const sf::Vector2f& position) = 0;
 	virtual void setPosition(sf::Vector2f position) = 0;
-	void setIndex(int index)
+	//virtual void moveObject(const sf::Vector2f amount)  = 0;
+	void setIndex(long long index)
 	{
 		mIndex = index;
 	}
