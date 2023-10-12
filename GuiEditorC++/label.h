@@ -8,7 +8,7 @@ class Label : public Object
 {
 public:
 	Label();
-	Label(std::string text, std::string fontname);
+	explicit Label(std::string text, std::string fontname);
 	virtual ~Label();
 
 	Label(const Label& rhs) = delete;

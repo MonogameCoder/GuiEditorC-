@@ -14,7 +14,7 @@ Button::Button::Button():
 	mLabel.setFontSize(12);
 
 	
-	mLabel.setPosition(sf::Vector2i(width() /2 - mLabel.width(), height() /2 - mLabel.height()));
+	mLabel.setPosition(sf::Vector2i(width() /2.0f - mLabel.width(), height() /2.0f - mLabel.height()));
 
 	mActive = true;
 	
@@ -127,7 +127,7 @@ void Button::setPosition(sf::Vector2f position)
 		pButtonClicked->setPosition(position);
 
 
-		mLabel.setPosition(mCurrentSprite.getPosition() + sf::Vector2f(mLabel.width() / 2, mLabel.height() / 2));
+		mLabel.setPosition(mCurrentSprite.getPosition() + sf::Vector2f(mLabel.width() / 2.0f, mLabel.height() / 2.0f));
 		getSprite()->setPosition(mCurrentSprite.getPosition());
 	}	
 }

@@ -77,28 +77,36 @@ int main()
             break;
             }
         }
-    
-      
+       
+        sf::Time time = clock.getElapsedTime();
       
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
-          
+            sf::Vector2i currMousePos = sf::Mouse::getPosition(window);
             if (selected != NULL)
             {
-                sf::Vector2i currMousePos = sf::Mouse::getPosition(window);
 
-                static_cast<Button*>(selected)->moveObject(sf::Vector2f(currMousePos - lastMousePos));
-                //selected->moveObject(sf::Vector2f(currMousePos - lastMousePos));
+                if (typeid(*selected) == typeid(Button))
+                {
+                    static_cast<Button*>(selected)->moveObject(sf::Vector2f(currMousePos - lastMousePos));
+                }
+                else if (typeid(*selected) == typeid(Sprite))
+                {
+                    static_cast<Sprite*>(selected)->moveObject(sf::Vector2f(currMousePos - lastMousePos));
+                }
+                else if (typeid(*selected) == typeid(Label))
+                {
+                    static_cast<Label*>(selected)->moveObject(sf::Vector2f(currMousePos - lastMousePos));
+                }
 
             }
         }
        
        
-        lastMousePos = sf::Mouse::getPosition(window);
-
-        sf::Time time = clock.getElapsedTime();
       
-        //bt3.update(time.asMilliseconds());
+
+        lastMousePos = sf::Mouse::getPosition(window);
+      
         frame.update(time.asMilliseconds());
         clock.restart();
       
@@ -107,6 +115,7 @@ int main()
         frame.draw(window);
         //bt3.draw(window);
         window.display();
+      
     }
 
     return 0;
