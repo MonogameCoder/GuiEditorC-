@@ -11,7 +11,7 @@ Button::Button::Button():
 	
 	mLabel.setFillColor(sf::Color::Black);
 	mLabel.setStyle(sf::Text::Style::Regular);
-	mLabel.setFontSize(16);
+	mLabel.setFontSize(12);
 
 	
 	mLabel.setPosition(sf::Vector2i(width() /2 - mLabel.width(), height() /2 - mLabel.height()));

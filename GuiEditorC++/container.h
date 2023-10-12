@@ -5,6 +5,8 @@
 #include <list>
 #include "object.h"
 #include "sprite.h"
+#include "button.h"
+#include "label.h"
 
 class Container : public Object
 {
@@ -16,7 +18,19 @@ public:
 
         Slot(sf::Vector2i position, Object& item) 
         {
-            pItem.reset(dynamic_cast<Sprite*>(&item));
+            if (typeid(item) == typeid(Button))
+            {
+                pItem.reset(dynamic_cast<Button*>(&item));
+            }
+            else if (typeid(item) == typeid(Sprite))
+            {
+                pItem.reset(dynamic_cast<Sprite*>(&item));
+            }
+            else if (typeid(item) == typeid(Label))
+            {
+                pItem.reset(dynamic_cast<Label*>(&item));
+            }
+           
             
             mPosition = position;
             mIndex = mGlobalIndex++;

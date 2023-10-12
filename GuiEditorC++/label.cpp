@@ -76,7 +76,7 @@ bool Label::contains(const sf::Vector2f& position)
 
 void Label::setFontSize(int size)
 {
-	mText.setCharacterSize(12);
+	mText.setCharacterSize(size);
 }
 
 void Label::setFillColor(sf::Color color)

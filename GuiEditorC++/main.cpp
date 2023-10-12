@@ -3,6 +3,7 @@
 #include <iostream>
 #include "sprite.h"
 #include "button.h"
+#include "label.h"
 #include "frame.h"
 
 
@@ -16,10 +17,15 @@ int main()
     
     Button bt1;
     Button bt2;
-   // Button bt3;
+    Label lb1("Hello World!", "assets/Arial.ttf");
+    lb1.setFontSize(22);
+    lb1.setFillColor(sf::Color::Yellow);
+    lb1.setStyle(sf::Text::Italic);
+  
     Frame frame;
     frame.addItem(sf::Vector2i(32, 32),bt1);
     frame.addItem(sf::Vector2i(128, 128), bt2);
+    frame.addItem(sf::Vector2i(256, 256), lb1);
     sf::Vector2i lastMousePos = sf::Mouse::getPosition(window);
 
     // run the program as long as the window is open
