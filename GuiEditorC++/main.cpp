@@ -43,12 +43,12 @@ int main()
             {
                 if (event.key.code == sf::Mouse::Left && selected != NULL)
                 {
-                  
-                  /*  if (typeid(selected) == typeid(Button))
-                    {*/
+                
+                    if (typeid(*selected) == typeid(Button))
+                    {
                         Button* btn = static_cast<Button*>(selected);
                         btn->setClicked(true);
-                    /*}*/
+                    }
                        
                     
                 }
@@ -58,11 +58,11 @@ int main()
             {
                 if (selected != NULL)
                 {
-                   /* if (typeid(selected) == typeid(Button))
-                    {*/
+                    if (typeid(*selected) == typeid(Button))
+                    {
                         Button* btn = static_cast<Button*>(selected);
                         btn->setClicked(false);
-                    /*}*/
+                    }
                 }
               
             }

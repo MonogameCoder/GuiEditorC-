@@ -6,7 +6,11 @@
 
 class Frame : public Container
 {
-
+	enum Mode
+	{
+		STATIC,
+		DYNAMIC
+	};
 public:
 	Frame();
 	~Frame();
@@ -44,6 +48,9 @@ public:
 	virtual void setPosition(sf::Vector2f position) override;
 
 	void moveObject(sf::Vector2f amount);
+
+private:
+	Mode mMode;
 
 };
 #endif

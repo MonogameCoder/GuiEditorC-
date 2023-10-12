@@ -1,6 +1,7 @@
 #include "frame.h"
 
 Frame::Frame()
+	:mMode(Mode::DYNAMIC)
 {
 	pFrameBG = std::make_shared<Sprite>("assets/UItoolboxTX.png");
 }
@@ -61,14 +62,21 @@ void Frame::update(sf::Int32 dt)
 {
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot slot = mSlots[i];
+		Container::Slot* slot = &mSlots[i];
 
-		if (slot.pItem.get() != nullptr)
+		if (slot->pItem.get() != nullptr)
 		{
 			sf::Vector2i pos = pFrameBG->getPosition();
-			slot.pItem->setPosition(sf::Vector2f(pos + slot.mPosition));
-			slot.pItem->update(dt);
-
+			if (mMode == Mode::STATIC)
+			{
+				slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));
+			}
+			else
+			{
+				slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));				
+				slot->mPosition = slot->pItem->getPosition();
+			}			
+			slot->pItem->update(dt);
 		}
 	}
 }

@@ -30,3 +30,8 @@ float Object::height()
 {
 	return 0;
 }
+
+sf::Vector2i Object::getPosition() const
+{
+	return sf::Vector2i();
+}

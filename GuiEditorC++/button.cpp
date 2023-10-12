@@ -128,7 +128,7 @@ void Button::setPosition(sf::Vector2f position)
 	}	
 }
 
-sf::Vector2i Button::getPosition()
+sf::Vector2i Button::getPosition() const
 {
 	return sf::Vector2i(getButton().getSprite().get()->getPosition());
 }

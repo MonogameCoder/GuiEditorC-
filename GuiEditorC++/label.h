@@ -22,7 +22,7 @@ public:
 	virtual float width() override;
 	virtual float height()  override;
 	sf::Text getText() const;
-	sf::Vector2i getPosition() const;
+	virtual sf::Vector2i getPosition() const override;
 	virtual void setPosition(sf::Vector2f position) override;
 	virtual Object* hitTest(const sf::Vector2f mousePosition) override;
 	virtual bool contains(const sf::Vector2f& position) override;

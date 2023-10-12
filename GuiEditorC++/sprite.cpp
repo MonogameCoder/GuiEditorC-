@@ -72,7 +72,7 @@ float Sprite::height()
 {
 	return pSprite->getLocalBounds().height;
 }
-sf::Vector2i Sprite::getPosition()
+sf::Vector2i Sprite::getPosition() const
 {
 	return sf::Vector2i(pSprite->getPosition());
 }

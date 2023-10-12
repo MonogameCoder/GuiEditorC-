@@ -25,7 +25,7 @@ public:
 	virtual Object* hitTest(const sf::Vector2f mousePosition) override;
 	virtual bool contains(const sf::Vector2f& position) override;
 	virtual void setPosition(sf::Vector2f position) override;
-	sf::Vector2i getPosition();
+	virtual sf::Vector2i getPosition() const override;
 	void moveObject(const sf::Vector2f amount);		
 	void Setup();	
 	const std::shared_ptr<sf::Sprite> getSprite() const;
