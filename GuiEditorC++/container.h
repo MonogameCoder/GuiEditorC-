@@ -31,8 +31,8 @@ public:
         sf::Vector2i mPosition;
         std::shared_ptr<Object> pItem;
     public:
-        long long mIndex;
-        static long long mGlobalIndex ;
+        unsigned int mIndex;
+        static unsigned int mGlobalIndex ;
    
     };
    

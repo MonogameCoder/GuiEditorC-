@@ -16,13 +16,13 @@ public:
 	virtual void setPosition(sf::Vector2f position) = 0;
 	virtual sf::Vector2i getPosition() const;
 	//virtual void moveObject(const sf::Vector2f amount)  = 0;
-	void setIndex(long long index)
+	void setIndex(unsigned int index)
 	{
 		mIndex = index;
 	}
 public:
 	bool mActive;
 private:
-	int mIndex;
+	unsigned int mIndex;
 };
 #endif

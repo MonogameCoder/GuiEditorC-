@@ -1,3 +1,3 @@
 #include "container.h"
 
-long long Container::Slot::mGlobalIndex= 0;
+unsigned int Container::Slot::mGlobalIndex= 0;

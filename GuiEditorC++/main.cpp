@@ -48,7 +48,9 @@ int main()
                     {
                         Button* btn = static_cast<Button*>(selected);
                         btn->setClicked(true);
+                      
                     }
+                   
                        
                     
                 }

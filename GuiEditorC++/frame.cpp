@@ -1,7 +1,7 @@
 #include "frame.h"
 
 Frame::Frame()
-	:mMode(Mode::DYNAMIC)
+	:mMode(Mode::STATIC)
 {
 	pFrameBG = std::make_shared<Sprite>("assets/UItoolboxTX.png");
 }

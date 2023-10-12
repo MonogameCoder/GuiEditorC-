@@ -72,8 +72,12 @@ Button& Button::operator=(Button&& rhs) noexcept
 
 void Button::draw(sf::RenderWindow& window)
 {
-
-	
+	auto pos = sf::Mouse::getPosition(window);
+	sf::Vector2f worldPos = window.mapPixelToCoords(pos);
+	if (!contains(worldPos))
+	{
+		mClicked = false;
+	}
 	// draw everything here...	
 	window.draw(mCurrentSprite);
 	mLabel.draw(window);
@@ -90,7 +94,7 @@ void Button::update(sf::Int32 dt)
 	{
 		mCurrentSprite = *getSprite();
 	}
-
+	
 }
 
 float Button::width()
