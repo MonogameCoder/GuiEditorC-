@@ -18,32 +18,23 @@ public:
 
         Slot(sf::Vector2i position, Object& item) 
         {
-            if (typeid(item) == typeid(Button))
-            {
-                pItem.reset(dynamic_cast<Button*>(&item));
-            }
-            else if (typeid(item) == typeid(Sprite))
-            {
-                pItem.reset(dynamic_cast<Sprite*>(&item));
-            }
-            else if (typeid(item) == typeid(Label))
-            {
-                pItem.reset(dynamic_cast<Label*>(&item));
-            }
-           
-            
+         
+
             mPosition = position;
             mIndex = mGlobalIndex++;
-            pItem->setIndex(mIndex);
+            item.setIndex(mIndex);
+
+            pItem = std::make_shared<Object*>(&item);
+          
            
         }       
         bool operator==(const Object& rhs) const
         {
-            return *pItem == rhs;
+            return *pItem == &rhs;
         }
     public:
         sf::Vector2i mPosition;
-        std::shared_ptr<Object> pItem;
+        std::shared_ptr<Object*> pItem;
     public:
         unsigned int mIndex;
         static unsigned int mGlobalIndex ;

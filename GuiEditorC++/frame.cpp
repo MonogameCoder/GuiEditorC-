@@ -41,11 +41,12 @@ Object* Frame::hitTest(const sf::Vector2f mousePosition)
 	{
 		Container::Slot slot = mSlots[i];
 
-		if (slot.pItem->mActive)
+		
+		if (slot.pItem  != nullptr && (*slot.pItem)->mActive)
 		{
-			if (slot.pItem->contains(mousePosition))
+			if ((*slot.pItem)->contains(mousePosition))
 			{
-				return slot.pItem.get();
+				return (*slot.pItem);
 			}
 		}
 	}
@@ -66,14 +67,15 @@ void Frame::update(sf::Int32 dt)
 
 		if (slot->pItem.get() != nullptr)
 		{
+			
 			sf::Vector2i pos = pFrameBG->getPosition();
-			slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));
+			(*slot->pItem.get())->setPosition(sf::Vector2f(pos + slot->mPosition));
 			if (mMode == Mode::DYNAMIC)
 			{
-				slot->mPosition = slot->pItem->getPosition();			
+				slot->mPosition = (*slot->pItem.get())->getPosition();
 			}
 	
-			slot->pItem->update(dt);
+			(*slot->pItem.get())->update(dt);
 		}
 	}
 }
@@ -88,7 +90,7 @@ void Frame::draw(sf::RenderWindow& window)
 		if (slot.pItem.get() != nullptr)
 		{
 
-			slot.pItem->draw(window);
+			(*slot.pItem)->draw(window);
 
 		}
 	}
@@ -123,7 +125,7 @@ void Frame::moveObject(sf::Vector2f amount)
 		if (slot.pItem.get() != nullptr)
 		{
 			sf::Vector2i pos = pFrameBG->getPosition();
-			slot.pItem->setPosition(sf::Vector2f(amount));
+			(*slot.pItem)->setPosition(sf::Vector2f(amount));
 
 
 		}
