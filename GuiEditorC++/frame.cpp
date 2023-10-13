@@ -35,18 +35,18 @@ bool Frame::contains(Object& item)
 
 
 
-Object* Frame::hitTest(const sf::Vector2f mousePosition)
+ Object* Frame::hitTest(const sf::Vector2f mousePosition)
 {
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot slot = mSlots[i];
+		Container::Slot* slot = &mSlots[i];
 
 		
-		if (slot.pItem  != nullptr && (*slot.pItem)->mActive)
+		if (slot->pItem  != nullptr && (*slot->pItem)->mActive)
 		{
-			if ((*slot.pItem)->contains(mousePosition))
+			if ((*slot->pItem.get())->contains(mousePosition))
 			{
-				return (*slot.pItem);
+				return *slot->pItem;
 			}
 		}
 	}
@@ -85,12 +85,12 @@ void Frame::draw(sf::RenderWindow& window)
 	pFrameBG->draw(window);
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot slot = mSlots[i];
+		Container::Slot* slot = &mSlots[i];
 
-		if (slot.pItem.get() != nullptr)
+		if (slot->pItem.get() != nullptr)
 		{
 
-			(*slot.pItem)->draw(window);
+			(*slot->pItem)->draw(window);
 
 		}
 	}
@@ -120,12 +120,12 @@ void Frame::moveObject(sf::Vector2f amount)
 {
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot slot = mSlots[i];
+		Container::Slot* slot = &mSlots[i];
 
-		if (slot.pItem.get() != nullptr)
+		if (slot->pItem.get() != nullptr)
 		{
 			sf::Vector2i pos = pFrameBG->getPosition();
-			(*slot.pItem)->setPosition(sf::Vector2f(amount));
+			(*slot->pItem)->setPosition(sf::Vector2f(amount));
 
 
 		}

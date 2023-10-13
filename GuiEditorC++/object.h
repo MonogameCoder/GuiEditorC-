@@ -18,7 +18,7 @@ public:
 	//virtual void moveObject(const sf::Vector2f amount)  = 0;
 	void setIndex(unsigned int index)
 	{
-		//mIndex = index;
+		mIndex = index;
 	}
 public:
 	bool mActive;

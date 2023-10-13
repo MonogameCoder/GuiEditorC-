@@ -26,7 +26,7 @@ int main()
     frame.addItem(sf::Vector2i(32, 32),bt1);
     frame.addItem(sf::Vector2i(128, 128), bt2);
     frame.addItem(sf::Vector2i(256, 256), lb1);
-    frame.removeItem(lb1);
+    
     sf::Vector2i lastMousePos = sf::Mouse::getPosition(window);
 
     // run the program as long as the window is open
@@ -49,17 +49,13 @@ int main()
             case sf::Event::MouseButtonPressed:
             {
                 if (event.key.code == sf::Mouse::Left && selected != NULL)
-                {
-                
+                {                
                     if (typeid(*selected) == typeid(Button))
                     {
                         Button* btn = static_cast<Button*>(selected);
                         btn->setClicked(true);
-                      
-                    }
-                   
-                       
-                    
+                        frame.removeItem(lb1);
+                    }                    
                 }
             }
             break;
