@@ -24,6 +24,8 @@
 		virtual void update(sf::Int32 dt) override;
 		virtual float width() override;
 		virtual float height() override;
+		virtual float defaultWidth() override;
+		virtual float defaultHeight() override;
 		virtual Object* hitTest(const sf::Vector2f mousePosition) override;
 		virtual bool contains(const sf::Vector2f& position) override;
 

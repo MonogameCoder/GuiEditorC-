@@ -16,25 +16,46 @@ public:
     {
     public:
 
-        Slot(sf::Vector2i position, Object& item) 
+        Slot(sf::Vector2i position, Object* item) 
         {
          
 
             mPosition = position;
             mIndex = mGlobalIndex++;
-            item.setIndex(mIndex);
-
-            pItem = std::make_shared<Object*>(&item);
-          
+            item->setIndex(mIndex);
+            if (typeid(*item) == typeid(Button))
+            {
+                pItem = new Button(*static_cast<Button*>(item));
+                //pItem = reinterpret_cast<Button*>(item);
+            }
+            else if (typeid(*item) == typeid(Sprite))
+            {
+                pItem = new Sprite(*static_cast<Sprite*>(item));
+               // pItem = static_cast<Sprite*>(item);
+            }
+            else if (typeid(*item) == typeid(Label))
+            {
+                pItem = new Label;
+                //pItem = static_cast<Label*>(item);
+            }        
            
-        }       
+        } 
+        ~Slot()
+        {
+            if (pItem != nullptr)
+            {
+                delete pItem;
+            }
+           
+            pItem = nullptr;
+        }
         bool operator==(const Object& rhs) const
         {
-            return *pItem == &rhs;
+            return pItem == &rhs;
         }
     public:
         sf::Vector2i mPosition;
-        std::shared_ptr<Object*> pItem;
+        Object* pItem;
     public:
         unsigned int mIndex;
         static unsigned int mGlobalIndex ;
@@ -43,7 +64,7 @@ public:
    
 
 public:
-    virtual void addItem(sf::Vector2i position, Object& item) = 0;
+    virtual void addItem(sf::Vector2i position, Object* item) = 0;
     virtual void removeItem(Object& item) = 0;
     virtual bool contains(Object& item) = 0;
  

@@ -15,7 +15,7 @@ Button::Button::Button():
 
 	
 	mLabel.setPosition(sf::Vector2i(width() /2.0f - mLabel.width(), height() /2.0f - mLabel.height()));
-
+	mDefaultSize = sf::Vector2f(mCurrentSprite.getLocalBounds().width, mCurrentSprite.getLocalBounds().height);
 	mActive = true;
 	
 }
@@ -23,7 +23,17 @@ Button::Button::Button():
 Button::Button(std::string filename) noexcept:
 	Sprite(filename)
 {
-	pButtonClicked = std::make_shared<Sprite>(filename + "clicked");
+	pButtonClicked = std::make_shared<Sprite>(filename + "clicked.png");
+	mCurrentSprite = *getSprite();
+
+	mLabel.setFillColor(sf::Color::Black);
+	mLabel.setStyle(sf::Text::Style::Regular);
+	mLabel.setFontSize(12);
+
+
+	mLabel.setPosition(sf::Vector2i(width() / 2.0f - mLabel.width(), height() / 2.0f - mLabel.height()));
+	mDefaultSize = sf::Vector2f(mCurrentSprite.getLocalBounds().width, mCurrentSprite.getLocalBounds().height);
+
 	mActive = true;
 }
 
@@ -105,6 +115,16 @@ float Button::width()
 float Button::height()
 {
 	return getButton().getSprite().get()->getLocalBounds().height;
+}
+
+float Button::defaultWidth()
+{
+	return mDefaultSize.x;
+}
+
+float Button::defaultHeight()
+{
+	return mDefaultSize.y;
 }
 
 Object* Button::hitTest(const sf::Vector2f mousePosition)

@@ -1,19 +1,14 @@
 #pragma once
-#ifndef FRAME
-#define FRAME
+#ifndef GRID
+#define GRID
 #include "container.h"
-#include<vector>
+#include "gridLL.h"
 
-class Frame : public Container
+class Grid : public Container
 {
-	enum Mode
-	{
-		STATIC,
-		DYNAMIC
-	};
 public:
-	Frame();
-	~Frame();
+	Grid();
+	~Grid();
 
 	Slot operator[](int index)
 	{
@@ -33,7 +28,7 @@ public:
 		}
 		return mSlots[0];
 	}
-
+	void insert(Container::Slot* item);
 	virtual void addItem(sf::Vector2i position, Object* item) override;
 	virtual void removeItem(Object& item) override;
 	virtual bool contains(Object& item)  override;
@@ -48,9 +43,7 @@ public:
 	virtual void setPosition(sf::Vector2f position) override;
 
 	void moveObject(sf::Vector2f amount);
-
 private:
-	Mode mMode;
-
+	GridLL mItems;
 };
-#endif
+#endif // !GRID

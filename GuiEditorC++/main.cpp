@@ -5,7 +5,7 @@
 #include "button.h"
 #include "label.h"
 #include "frame.h"
-
+#include "grid.h"
 
 
 int main()
@@ -23,10 +23,22 @@ int main()
     lb1.setStyle(sf::Text::Italic);
   
     Frame frame;
-    frame.addItem(sf::Vector2i(32, 32),bt1);
-    frame.addItem(sf::Vector2i(128, 128), bt2);
-    frame.addItem(sf::Vector2i(256, 256), lb1);
-    
+    frame.addItem(sf::Vector2i(32, 32),&bt1);
+    frame.addItem(sf::Vector2i(128, 128), &bt2);
+    frame.addItem(sf::Vector2i(256, 256), &lb1);
+
+    Button bt3;
+    Button bt4;
+    Button bt5;
+
+    Grid grid;
+    sf::Vector2f gridPos = sf::Vector2f(frame.getPosition().x + frame.width(), frame.getPosition().y);
+    grid.setPosition(gridPos);
+    grid.addItem(sf::Vector2i(), &bt3);
+    grid.addItem(sf::Vector2i(), &bt4);
+    grid.addItem(sf::Vector2i(), &bt5);
+
+
     sf::Vector2i lastMousePos = sf::Mouse::getPosition(window);
 
     // run the program as long as the window is open
@@ -105,11 +117,13 @@ int main()
         lastMousePos = sf::Mouse::getPosition(window);
       
         frame.update(time.asMilliseconds());
+        grid.update(time.asMilliseconds());
         clock.restart();
       
         window.clear(sf::Color::Black);
        
         frame.draw(window);
+        grid.draw(window);
         //bt3.draw(window);
         window.display();
       

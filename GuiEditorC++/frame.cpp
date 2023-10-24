@@ -10,9 +10,9 @@ Frame::~Frame()
 {
 }
 
-void Frame::addItem(sf::Vector2i position, Object& item)
+void Frame::addItem(sf::Vector2i position, Object* item)
 {
-	mSlots.emplace_back(Slot(position, item));
+	//mSlots.emplace_back(Slot(position, item));
 }
 
 void Frame::removeItem(Object& item)
@@ -42,11 +42,11 @@ bool Frame::contains(Object& item)
 		Container::Slot* slot = &mSlots[i];
 
 		
-		if (slot->pItem  != nullptr && (*slot->pItem)->mActive)
+		if (slot->pItem  != nullptr && (slot->pItem)->mActive)
 		{
-			if ((*slot->pItem.get())->contains(mousePosition))
+			if ((slot->pItem)->contains(mousePosition))
 			{
-				return *slot->pItem;
+				return slot->pItem;
 			}
 		}
 	}
@@ -65,17 +65,17 @@ void Frame::update(sf::Int32 dt)
 	{
 		Container::Slot* slot = &mSlots[i];
 
-		if (slot->pItem.get() != nullptr)
+		if (slot->pItem != nullptr)
 		{
 			
 			sf::Vector2i pos = pFrameBG->getPosition();
-			(*slot->pItem.get())->setPosition(sf::Vector2f(pos + slot->mPosition));
+			(slot->pItem)->setPosition(sf::Vector2f(pos + slot->mPosition));
 			if (mMode == Mode::DYNAMIC)
 			{
-				slot->mPosition = (*slot->pItem.get())->getPosition();
+				slot->mPosition = (slot->pItem)->getPosition();
 			}
 	
-			(*slot->pItem.get())->update(dt);
+			(slot->pItem)->update(dt);
 		}
 	}
 }
@@ -87,10 +87,10 @@ void Frame::draw(sf::RenderWindow& window)
 	{
 		Container::Slot* slot = &mSlots[i];
 
-		if (slot->pItem.get() != nullptr)
+		if (slot->pItem != nullptr)
 		{
 
-			(*slot->pItem)->draw(window);
+			(slot->pItem)->draw(window);
 
 		}
 	}
@@ -122,10 +122,10 @@ void Frame::moveObject(sf::Vector2f amount)
 	{
 		Container::Slot* slot = &mSlots[i];
 
-		if (slot->pItem.get() != nullptr)
+		if (slot->pItem != nullptr)
 		{
 			sf::Vector2i pos = pFrameBG->getPosition();
-			(*slot->pItem)->setPosition(sf::Vector2f(amount));
+			(slot->pItem)->setPosition(sf::Vector2f(amount));
 
 
 		}

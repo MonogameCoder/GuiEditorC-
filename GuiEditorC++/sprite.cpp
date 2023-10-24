@@ -1,6 +1,9 @@
 #include "sprite.h"
 #include <stdlib.h>
 using namespace std;
+Sprite::Sprite()
+{
+}
 Sprite::Sprite(std::string filename) noexcept
 	: mPosition(sf::Vector2i::Vector2(0, 0))
 	 
@@ -8,6 +11,7 @@ Sprite::Sprite(std::string filename) noexcept
 	mActive = true;
 	loadSprite(filename);
 	pSprite = make_shared<sf::Sprite>(mTexture);
+	mDefaultSize = sf::Vector2f(pSprite->getLocalBounds().width, pSprite->getLocalBounds().height);
 	
 }
 
@@ -61,6 +65,16 @@ void Sprite::update(sf::Int32 dt)
 {
 	
 	
+}
+
+float Sprite::defaultWidth()
+{
+	return mDefaultSize.x;
+}
+
+float Sprite::defaultHeight()
+{
+	return mDefaultSize.y;
 }
 
 float Sprite::width()

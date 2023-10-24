@@ -42,6 +42,9 @@
     <ClCompile Include="container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="object.h">
@@ -59,6 +62,12 @@
     <ClInclude Include="container.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gridLL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\ninja.jpg">
@@ -74,6 +83,9 @@
       <Filter>assets</Filter>
     </Image>
     <Image Include="assets\UItoolboxTX.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\FrameEditorTX.png">
       <Filter>assets</Filter>
     </Image>
   </ItemGroup>

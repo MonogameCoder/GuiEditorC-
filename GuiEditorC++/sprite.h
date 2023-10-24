@@ -8,6 +8,7 @@
 class Sprite: public Object
 {
 public:
+	Sprite();
 	explicit Sprite(std::string filename) noexcept;
 	Sprite(const Sprite& rhs);
 	Sprite(Sprite&& rhs) noexcept;
@@ -20,6 +21,8 @@ public:
 public:
 	virtual void draw(sf::RenderWindow& window) override;
 	virtual void update(sf::Int32 dt) override;
+	virtual float defaultWidth() override;
+	virtual float defaultHeight() override;
 	virtual float width() override;
 	virtual float height() override;	
 	virtual Object* hitTest(const sf::Vector2f mousePosition) override;
