@@ -4,6 +4,7 @@
 
 Button::Button::Button():
 	Sprite("assets/button0.png" )
+
 	
 {
 	pButtonClicked = std::make_shared<Sprite>("assets/button0clicked.png");

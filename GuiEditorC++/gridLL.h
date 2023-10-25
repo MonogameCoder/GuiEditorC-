@@ -3,21 +3,25 @@
 #define GRIDLL
 #include "container.h"
 #include "object.h"
+#include <iostream>
 
 class GridLL
 {
 public:
     struct Node
     {
+       
     public:
         Node* _right;
         Node* _left;
         Node* _down;
         Node* _up;
         Container::Slot* _data;
-        int width;
-        int height;
+        float width;
+        float height;
         Node(Container::Slot* data)
+            :height(0),
+            width(0)
         {
             _data = data;
             _right = nullptr;
@@ -43,7 +47,7 @@ public:
     };
 private:
     Node* _head;
-    const int MIN_SPACE = 7;
+    const float MIN_SPACE = 7;
     const float ONE_PER = 0.01f;
     const float TWO_PER = 0.02f;
 
@@ -52,7 +56,24 @@ public:
     {
         _head = nullptr;
     }
-    int GetXMax(Node* current)
+    ~GridLL()
+    {
+
+        /* deref head_ref to get the real head */
+        Node* current = _head;
+        Node* next = nullptr;
+
+        while (current != nullptr)
+        {
+            next = current->_right;         
+            delete current;
+            current = next;           
+        }
+
+        _head = nullptr;
+
+    }
+    float GetXMax(Node* current)
     {
         Node* temp = current;
         temp = RewindRows(temp);
@@ -85,7 +106,7 @@ public:
         }
         return _max->width;
     }
-    int GetXMaxExcept(Node* current)
+    float GetXMaxExcept(Node* current)
     {
         Node* temp = current;
         temp = RewindRows(temp);
@@ -116,7 +137,7 @@ public:
         }
         return _max->_data->pItem->defaultWidth();
     }
-    int GetYMax(Node* current)
+    float GetYMax(Node* current)
     {
         Node* temp = current;
         temp = RewindColumns(temp);
@@ -150,7 +171,7 @@ public:
         }
         return _max->height;
     }
-    int GetYMaxExcept(Node* current)
+    float GetYMaxExcept(Node* current)
     {
         Node* temp = current;
         temp = RewindColumns(temp);
@@ -183,6 +204,11 @@ public:
     }
      void Insert(Container::Slot* data)
     {
+         if (data->pItem != nullptr)
+         {
+             data->pItem->setPosition((sf::Vector2f)data->mPosition);
+         }
+         
         Node* _newNode = new Node(data);
 
         if (_head == nullptr)
@@ -193,7 +219,6 @@ public:
         else
         {
             Node* temp = _head;
-
             while (temp != nullptr)
             {
                 if (data->pItem->getPosition().x < temp->_data->pItem->getPosition().x)
@@ -297,7 +322,7 @@ public:
                             }
 
 
-                            if (data->pItem->getPosition().y <= temp->_data->pItem->getPosition().y + temp->height && temp->_data->pItem == nullptr)
+                            if (data->pItem->getPosition().y <= temp->_data->mPosition.y + temp->height && temp->_data->pItem == nullptr)
                             {
 
                                 //Node colBefore = temp.prev_column;
@@ -386,10 +411,11 @@ public:
         RearrangeList();
 
     }
-    std::shared_ptr<Node>  CreateDummyNode(Node* current)
+    Node* CreateDummyNode(Node* current)
     {
-        auto _dummySlot  = std::make_shared<Container::Slot>(sf::Vector2i(), nullptr);
-        auto _dummyNode = std::make_shared<Node>( _dummySlot.get());
+        Container::Slot* _dummyslot  = new Container::Slot(sf::Vector2i(),nullptr);
+        
+        Node* _dummyNode = new Node(_dummyslot);
 
         _dummyNode->width = current->width;
         _dummyNode->height = current->height;
@@ -403,7 +429,7 @@ public:
         {
             if (current->_right != newNode)
             {
-                Node* dummyNode = CreateDummyNode(current).get();
+                Node* dummyNode = CreateDummyNode(current);
                 dummyNode->_right = current->_right;
                 dummyNode->_left = current;
 
@@ -420,7 +446,7 @@ public:
         {
             if (current->_left != newNode)
             {
-                Node* dummyNode = CreateDummyNode(current).get();
+                Node* dummyNode = CreateDummyNode(current);
 
                 dummyNode->_right = current;
                 dummyNode->_left = current->_left;
@@ -445,7 +471,7 @@ public:
             if (current->_up != newNode)
             {
 
-                Node* _dummyNode = CreateDummyNode(current).get();
+                Node* _dummyNode = CreateDummyNode(current);
                 _dummyNode->width = current->width;
 
                 _dummyNode->_down = current;
@@ -465,7 +491,7 @@ public:
             if (current->_down != newNode)
             {
 
-                Node* _dummyNode = CreateDummyNode(current).get();
+                Node* _dummyNode = CreateDummyNode(current);
                 _dummyNode->width = current->width;
 
                 _dummyNode->_up = current;
@@ -588,14 +614,14 @@ public:
         ResetSizes();
 
 
-        int _totalXSize = GetColumnsTotalSize(GetWidestRow());
+        float _totalXSize = GetColumnsTotalSize(GetWidestRow());
         while (_totalXSize > mFrameRect.width - MIN_SPACE * 2)
         {
             ResizeHorizontal();
             _totalXSize = GetColumnsTotalSize(GetWidestRow());
         }
 
-        int totalYSize = GetRowsTotalSize(GetHeighestColumn());
+        float totalYSize = GetRowsTotalSize(GetHeighestColumn());
         while (totalYSize > mFrameRect.height - MIN_SPACE * 2)
         {
             ResizeVertical();
@@ -628,10 +654,10 @@ public:
 
         return _count;
     }
-    int GetColumnsTotalSize(Node* current)
+    float GetColumnsTotalSize(Node* current)
     {
-        int totalWidth = 0;
-        int spacesSum = 0;
+        float totalWidth = 0;
+        float spacesSum = 0;
 
         if (current != nullptr)
         {
@@ -648,10 +674,10 @@ public:
         }
         return totalWidth + spacesSum;
     }
-    int GetRowsTotalSize(Node* current)
+    float GetRowsTotalSize(Node* current)
     {
-        int totalHeight = 0;
-        int spacesSum = 0;
+        float totalHeight = 0;
+        float spacesSum = 0;
 
         if (current != nullptr)
         {
@@ -716,15 +742,15 @@ public:
             Node* tmp = temp;
             while (tmp != nullptr)
             {
-                int _newSizeX = GetXMax(tmp);
+                float _newSizeX = GetXMax(tmp);
                 if (GetWidestRow()->width > tmp->width)
                 {
                     float ratio = tmp->width / (float)GetWidestRow()->width;
-                    _newSizeX = (int)(tmp->width * (ONE_PER * ratio));
+                    _newSizeX = (tmp->width * (ONE_PER * ratio));
                 }
                 else
                 {
-                    _newSizeX = (int)ceil(_newSizeX * ONE_PER);
+                    _newSizeX = ceil(_newSizeX * ONE_PER);
                 }
                 if (tmp->_data->pItem != nullptr)
                 {
@@ -761,15 +787,15 @@ public:
             while (tmp != nullptr)
             {
 
-                int _newSizeY = GetYMax(tmp);
+                float _newSizeY = GetYMax(tmp);
                 if (GetHeighestColumn()->height > tmp->height)
                 {
                     float ratio = tmp->height / (float)GetHeighestColumn()->height;
-                    _newSizeY = (int)(tmp->height * (ONE_PER * ratio));
+                    _newSizeY = (tmp->height * (ONE_PER * ratio));
                 }
                 else
                 {
-                    _newSizeY = (int)ceil(_newSizeY * ONE_PER);
+                    _newSizeY = ceil(_newSizeY * ONE_PER);
                 }
                 if (tmp->_data->pItem != nullptr)
                 {
@@ -839,11 +865,11 @@ public:
         SetRowsColsDim();
         RearrangeList();
     }
-    int GetTotalXSizeExcept(Node* current)
+    float GetTotalXSizeExcept(Node* current)
     {
         Node* temp = _head;
-        int totalWidth = 0;
-        int spacesSum = 0;
+        float totalWidth = 0;
+        float spacesSum = 0;
         while (temp != nullptr)
         {
             if (temp != current)
@@ -858,11 +884,11 @@ public:
         return totalWidth + spacesSum;
     }
 
-    int GetTotalYSizeExcept(Node* current)
+    float GetTotalYSizeExcept(Node* current)
     {
         Node* temp = current;
-        int totalHeight = 0;
-        int spacesSum = 0;
+        float totalHeight = 0;
+        float spacesSum = 0;
         while (temp != nullptr)
         {
             if (temp != current)
@@ -965,7 +991,7 @@ public:
         if (temp != nullptr && temp->_data == key)
         {
 
-            Node* _dummyNode = CreateDummyNode(temp).get();
+            Node* _dummyNode = CreateDummyNode(temp);
             _dummyNode->_right = temp->_right;
             _dummyNode->_left = temp->_left;
             _dummyNode->_down = temp->_down;
@@ -1010,7 +1036,7 @@ public:
                 {
                     if (tmp->_data == key)
                     {
-                        Node* _dummyNode = CreateDummyNode(tmp).get();
+                        Node* _dummyNode = CreateDummyNode(tmp);
                         _dummyNode->_left = tmp->_left;
                         _dummyNode->_right = tmp->_right;
                         _dummyNode->_up = tmp->_up;

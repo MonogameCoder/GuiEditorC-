@@ -19,11 +19,14 @@ public:
         Slot(sf::Vector2i position, Object* item) 
             :pItem(nullptr)
         {
-         
-
             mPosition = position;
-            mIndex = mGlobalIndex++;
-            item->setIndex(mIndex);
+           
+            if (item != nullptr)
+            {
+                mIndex = mGlobalIndex++;
+                item->setIndex(mIndex);
+            }
+            
             pItem = item;
            
         } 

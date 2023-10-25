@@ -30,13 +30,15 @@ int main()
     Button bt3;
     Button bt4;
     Button bt5;
+    Button bt6;
 
     Grid grid;
     sf::Vector2f gridPos = sf::Vector2f(frame.getPosition().x + frame.width(), frame.getPosition().y);
     grid.setPosition(gridPos);
-    grid.addItem(sf::Vector2i(), &bt3);
-    grid.addItem(sf::Vector2i(), &bt4);
-    grid.addItem(sf::Vector2i(), &bt5);
+    grid.addItem(sf::Vector2i(0,0), &bt3);
+    grid.addItem(sf::Vector2i(128,0), &bt4);
+    grid.addItem(sf::Vector2i(0,128), &bt5);
+    grid.addItem(sf::Vector2i(128,128), &bt6);
 
 
     sf::Vector2i lastMousePos = sf::Mouse::getPosition(window);

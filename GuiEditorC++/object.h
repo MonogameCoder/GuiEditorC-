@@ -29,6 +29,6 @@ public:
 	bool mActive;
 	sf::Vector2f mDefaultSize;
 private:
-	unsigned int mIndex;
+	unsigned int mIndex = 0;
 };
 #endif
