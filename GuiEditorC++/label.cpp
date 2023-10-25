@@ -45,12 +45,12 @@ void Label::update(sf::Int32 dt)
 
 float Label::width()
 {
-	return mText.getLocalBounds().width;
+	return mText.getGlobalBounds().width;
 }
 
 float Label::height()
 {
-	return mText.getLocalBounds().height;
+	return mText.getGlobalBounds().height;
 }
 
 sf::Text Label::getText() const
@@ -109,6 +109,16 @@ void Label::setText(std::string text)
 void Label::setPosition(sf::Vector2i position)
 {
 	mText.setPosition((sf::Vector2f)position);
+}
+
+void Label::setOrigin(sf::Vector2f origin)
+{
+	mText.setOrigin(origin);
+}
+
+sf::Vector2f Label::getOrigin() const
+{
+	return mText.getOrigin();
 }
 
 void Label::moveObject(sf::Vector2f amount)

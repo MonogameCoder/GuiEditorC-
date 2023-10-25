@@ -14,10 +14,17 @@ Button::Button::Button():
 	mLabel.setFillColor(sf::Color::Black);
 	mLabel.setStyle(sf::Text::Style::Regular);
 	mLabel.setFontSize(12);
-
+	mLabel.setPosition(sf::Vector2i(width() / 2, height() / 2));
 	
-	mLabel.setPosition(sf::Vector2i(width() /2.0f - mLabel.width(), height() /2.0f - mLabel.height()));
+
+	if (mLabel.width() >= mDefaultSize.x || mLabel.height() >= mDefaultSize.y)
+	{
+		resize(sf::Vector2f(mLabel.width() / mDefaultSize.x, 1 + mLabel.height() / mDefaultSize.y));
+	}
+	mLabel.setOrigin(sf::Vector2f(mLabel.width() / 2, mLabel.height() / 2));
+
 	mDefaultSize = sf::Vector2f(mCurrentSprite.getLocalBounds().width, mCurrentSprite.getLocalBounds().height);
+	
 	mActive = true;
 
 }
@@ -32,11 +39,17 @@ Button::Button(std::string filename) noexcept:
 	mLabel.setFillColor(sf::Color::Black);
 	mLabel.setStyle(sf::Text::Style::Regular);
 	mLabel.setFontSize(12);
+	mLabel.setPosition(sf::Vector2i(width() / 2, height() / 2));
 
+	
 
-	mLabel.setPosition(sf::Vector2i(width() / 2.0f - mLabel.width(), height() / 2.0f - mLabel.height()));
+	if (mLabel.width() >= mDefaultSize.x || mLabel.height() >= mDefaultSize.y)
+	{
+		resize(sf::Vector2f(mLabel.width() / mDefaultSize.x, 1 + mLabel.height() / mDefaultSize.y));
+	}
+	mLabel.setOrigin(sf::Vector2f(mLabel.width() / 2, mLabel.height() / 2));
 	mDefaultSize = sf::Vector2f(mCurrentSprite.getLocalBounds().width, mCurrentSprite.getLocalBounds().height);
-
+	
 	mActive = true;
 }
 
@@ -112,12 +125,12 @@ void Button::update(sf::Int32 dt)
 
 float Button::width()
 {
-	return getButton().getSprite().get()->getLocalBounds().width;
+	return getButton().getSprite()->getGlobalBounds().width;
 }
 
 float Button::height()
 {
-	return getButton().getSprite().get()->getLocalBounds().height;
+	return getButton().getSprite()->getGlobalBounds().height;
 }
 
 float Button::defaultWidth()
@@ -146,18 +159,33 @@ void Button::setPosition(sf::Vector2f position)
 {
 	if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
+		
+		sf::Vector2f center(mCurrentSprite.getPosition().x + width() /2, mCurrentSprite.getPosition().y + height() /2 - mLabel.height() /2);
+
 		mCurrentSprite.setPosition(position);
 		pButtonClicked->setPosition(position);
+		mLabel.setOrigin(sf::Vector2f(mLabel.width() / 2, mLabel.height() /2));
+		auto pos = sf::Vector2f(center.x , center.y);
+		mLabel.setPosition(pos);
+		
+		
 
-
-		mLabel.setPosition(mCurrentSprite.getPosition() + sf::Vector2f(mLabel.width() / 2.0f, mLabel.height() / 2.0f));
 		getSprite()->setPosition(mCurrentSprite.getPosition());
+
+	
 	}	
 }
 
 sf::Vector2i Button::getPosition() const
 {
-	return sf::Vector2i(getButton().getSprite().get()->getPosition());
+	return sf::Vector2i(getButton().getSprite()->getPosition());
+}
+
+void Button::resize(sf::Vector2f amount)
+{
+	pButtonClicked->getSprite()->setScale(amount);
+	getSprite()->setScale(amount);
+
 }
 
 void Button::moveObject(const sf::Vector2f amount)
@@ -182,7 +210,6 @@ void Button::setClicked(bool clicked)
 }
 bool Button::contains(const sf::Vector2f& position)
 {
-	auto bounds = getSprite()->getGlobalBounds();
 	return getSprite()->getGlobalBounds().contains(position);
 }
 

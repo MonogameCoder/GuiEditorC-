@@ -28,9 +28,9 @@
 		virtual float defaultHeight() override;
 		virtual Object* hitTest(const sf::Vector2f mousePosition) override;
 		virtual bool contains(const sf::Vector2f& position) override;
-
 		virtual void setPosition(sf::Vector2f position) override;
 		virtual sf::Vector2i getPosition() const override;
+		virtual void resize(sf::Vector2f amount) override;
 		void moveObject(const sf::Vector2f amount) ;
 		void Setup();
 		const Sprite getButton() const;

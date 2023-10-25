@@ -12,7 +12,7 @@ Sprite::Sprite(std::string filename) noexcept
 	loadSprite(filename);
 	pSprite = make_shared<sf::Sprite>(mTexture);
 	pSprite->setOrigin(0, 0);
-	mDefaultSize = sf::Vector2f(pSprite->getLocalBounds().width, pSprite->getLocalBounds().height);
+	mDefaultSize = sf::Vector2f(pSprite->getGlobalBounds().width, pSprite->getGlobalBounds().height);
 	
 }
 
@@ -80,12 +80,12 @@ float Sprite::defaultHeight()
 
 float Sprite::width()
 {
-	return pSprite->getLocalBounds().width;
+	return pSprite->getGlobalBounds().width;
 }
 
 float Sprite::height()
 {
-	return pSprite->getLocalBounds().height;
+	return pSprite->getGlobalBounds().height;
 }
 sf::Vector2i Sprite::getPosition() const
 {
@@ -112,7 +112,7 @@ void Sprite::setPosition(sf::Vector2f position)
 }
 bool Sprite::contains(const sf::Vector2f& position)
 {	
-	return pSprite->getLocalBounds().contains(position);
+	return pSprite->getGlobalBounds().contains(position);
 }
 void Sprite::Setup()
 {

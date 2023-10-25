@@ -18,7 +18,7 @@ public:
 	virtual bool contains(const sf::Vector2f& position) = 0;
 	virtual void setPosition(sf::Vector2f position) = 0;
 	virtual sf::Vector2i getPosition() const;
-	virtual void resize(sf::Vector2f size);
+	virtual void resize(sf::Vector2f amount);
 	virtual void resetSize();
 	//virtual void moveObject(const sf::Vector2f amount)  = 0;
 	void setIndex(unsigned int index)

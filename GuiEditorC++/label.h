@@ -32,6 +32,8 @@ public:
 	void setStyle(sf::Text::Style style);
 	void setText(std::string text);
 	void setPosition(sf::Vector2i position);
+	void setOrigin(sf::Vector2f origin);
+	sf::Vector2f getOrigin() const;
 	void loadFont(std::string fontname);
 private:
 	sf::Text mText;
