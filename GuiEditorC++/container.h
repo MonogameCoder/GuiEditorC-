@@ -17,27 +17,14 @@ public:
     public:
 
         Slot(sf::Vector2i position, Object* item) 
+            :pItem(nullptr)
         {
          
 
             mPosition = position;
             mIndex = mGlobalIndex++;
             item->setIndex(mIndex);
-            if (typeid(*item) == typeid(Button))
-            {
-                pItem = new Button(*static_cast<Button*>(item));
-                //pItem = reinterpret_cast<Button*>(item);
-            }
-            else if (typeid(*item) == typeid(Sprite))
-            {
-                pItem = new Sprite(*static_cast<Sprite*>(item));
-               // pItem = static_cast<Sprite*>(item);
-            }
-            else if (typeid(*item) == typeid(Label))
-            {
-                pItem = new Label;
-                //pItem = static_cast<Label*>(item);
-            }        
+            pItem = item;
            
         } 
         ~Slot()
@@ -71,10 +58,10 @@ public:
 
     virtual void update(sf::Int32 dt) = 0;
     virtual void draw(sf::RenderWindow& window) = 0;
-    virtual std::vector<Slot> getSlots() = 0;
+    virtual std::vector<Slot*> getSlots() = 0;
 
 protected:
-    std::vector<Slot> mSlots;
+    std::vector<Slot*> mSlots;
     std::list<Slot> mChildren;
     std::shared_ptr<Sprite> pFrameBG;
 

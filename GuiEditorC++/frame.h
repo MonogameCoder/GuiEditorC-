@@ -15,18 +15,18 @@ public:
 	Frame();
 	~Frame();
 
-	Slot operator[](int index)
+	Slot* operator[](int index)
 	{
 		if (index >= 0)
 			return mSlots.at(index);
 		return  mSlots[0];
 	}
 
-	Slot operator[](Object& item)
+	Slot* operator[](Object& item)
 	{
 		for (unsigned int i = 0; i < mSlots.size(); i++)
 		{
-			if (mSlots[i] == item)
+			if (*mSlots[i] == item)
 			{
 				return mSlots[i];
 			}
@@ -41,7 +41,7 @@ public:
 	virtual bool contains(const sf::Vector2f& position) override;
 	virtual void update(sf::Int32 dt)  override;
 	virtual void draw(sf::RenderWindow& window) override;
-	virtual std::vector<Slot> getSlots() override;
+	virtual std::vector<Slot*> getSlots() override;
 
 	virtual float width() override;
 	virtual float height() override;

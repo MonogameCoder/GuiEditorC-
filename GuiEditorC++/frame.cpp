@@ -12,14 +12,14 @@ Frame::~Frame()
 
 void Frame::addItem(sf::Vector2i position, Object* item)
 {
-	//mSlots.emplace_back(Slot(position, item));
+	mSlots.emplace_back(new Slot(position, item));
 }
 
 void Frame::removeItem(Object& item)
 {
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
-		if (mSlots[i] == item)
+		if (*mSlots[i] == item)
 		{
 			mSlots.erase(mSlots.begin() + i);
 			break;
@@ -39,12 +39,12 @@ bool Frame::contains(Object& item)
 {
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = &mSlots[i];
+		Container::Slot* slot = mSlots[i];
 
 		
-		if (slot->pItem  != nullptr && (slot->pItem)->mActive)
+		if (slot->pItem  != nullptr && slot->pItem->mActive)
 		{
-			if ((slot->pItem)->contains(mousePosition))
+			if (slot->pItem->contains(mousePosition))
 			{
 				return slot->pItem;
 			}
@@ -63,19 +63,19 @@ void Frame::update(sf::Int32 dt)
 {
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = &mSlots[i];
+		Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem != nullptr)
 		{
 			
 			sf::Vector2i pos = pFrameBG->getPosition();
-			(slot->pItem)->setPosition(sf::Vector2f(pos + slot->mPosition));
+			slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));
 			if (mMode == Mode::DYNAMIC)
 			{
-				slot->mPosition = (slot->pItem)->getPosition();
+				slot->mPosition = slot->pItem->getPosition();
 			}
 	
-			(slot->pItem)->update(dt);
+			slot->pItem->update(dt);
 		}
 	}
 }
@@ -85,18 +85,18 @@ void Frame::draw(sf::RenderWindow& window)
 	pFrameBG->draw(window);
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = &mSlots[i];
+		Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem != nullptr)
 		{
 
-			(slot->pItem)->draw(window);
+			slot->pItem->draw(window);
 
 		}
 	}
 }
 
-std::vector<Container::Slot> Frame::getSlots()
+std::vector<Container::Slot*> Frame::getSlots()
 {
 	return mSlots;
 }
@@ -120,12 +120,12 @@ void Frame::moveObject(sf::Vector2f amount)
 {
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = &mSlots[i];
+		Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem != nullptr)
 		{
 			sf::Vector2i pos = pFrameBG->getPosition();
-			(slot->pItem)->setPosition(sf::Vector2f(amount));
+			slot->pItem->setPosition(sf::Vector2f(amount));
 
 
 		}

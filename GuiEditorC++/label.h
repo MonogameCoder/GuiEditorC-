@@ -11,10 +11,10 @@ public:
 	explicit Label(std::string text, std::string fontname);
 	virtual ~Label();
 
-	Label(const Label& rhs) = delete;
-	Label(Label&& rhs) noexcept = delete;
-	Label& operator =(const Label& rhs) = delete;
-	Label& operator=(Label&& rhs) noexcept = delete;
+	//Label(const Label& rhs) = delete;
+	//Label(Label&& rhs) noexcept = delete;
+	//Label& operator =(const Label& rhs) = delete;
+	//Label& operator=(Label&& rhs) noexcept = delete;
 
 public:
 	virtual void draw(sf::RenderWindow& window) override;

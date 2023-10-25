@@ -18,9 +18,9 @@ void Grid::insert(Container::Slot* item)
 
 void Grid::addItem(sf::Vector2i position, Object* item)
 {
-	auto slot =  std::make_shared<Slot>(Slot(position, item));
-	//mSlots.emplace_back(*slot.get());
-	insert(slot.get());
+	auto slot = new Slot(position, item);
+	mSlots.emplace_back(slot);
+	insert(slot);
 
 }
 
@@ -28,7 +28,7 @@ void Grid::removeItem(Object& item)
 {
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
-		if (mSlots[i] == item)
+		if (*mSlots[i] == item)
 		{
 			mSlots.erase(mSlots.begin() + i);
 			break;
@@ -48,7 +48,7 @@ Object* Grid::hitTest(const sf::Vector2f mousePosition)
 {
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = &mSlots[i];
+		Container::Slot* slot = mSlots[i];
 
 
 		if (slot->pItem != nullptr && slot->pItem->mActive)
@@ -73,7 +73,7 @@ void Grid::update(sf::Int32 dt)
 	mItems.UpdateLayout();
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = &mSlots[i];
+		Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem != nullptr)
 		{
@@ -90,7 +90,7 @@ void Grid::draw(sf::RenderWindow& window)
 	pFrameBG->draw(window);
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = &mSlots[i];
+		Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem != nullptr)
 		{
@@ -101,7 +101,7 @@ void Grid::draw(sf::RenderWindow& window)
 	}
 }
 
-std::vector<Container::Slot> Grid::getSlots()
+std::vector<Container::Slot*> Grid::getSlots()
 {
 	return mSlots;
 }
@@ -125,7 +125,7 @@ void Grid::moveObject(sf::Vector2f amount)
 {
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = &mSlots[i];
+		Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem != nullptr)
 		{
