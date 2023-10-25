@@ -11,6 +11,7 @@ Sprite::Sprite(std::string filename) noexcept
 	mActive = true;
 	loadSprite(filename);
 	pSprite = make_shared<sf::Sprite>(mTexture);
+	pSprite->setOrigin(0, 0);
 	mDefaultSize = sf::Vector2f(pSprite->getLocalBounds().width, pSprite->getLocalBounds().height);
 	
 }

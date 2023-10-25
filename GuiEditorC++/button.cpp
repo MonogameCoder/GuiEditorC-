@@ -8,8 +8,9 @@ Button::Button::Button():
 	
 {
 	pButtonClicked = std::make_shared<Sprite>("assets/button0clicked.png");
-	mCurrentSprite = *getSprite();
-	
+	mCurrentSprite = *getSprite();	
+	mCurrentSprite.setOrigin(0, 0);
+
 	mLabel.setFillColor(sf::Color::Black);
 	mLabel.setStyle(sf::Text::Style::Regular);
 	mLabel.setFontSize(12);
@@ -18,7 +19,7 @@ Button::Button::Button():
 	mLabel.setPosition(sf::Vector2i(width() /2.0f - mLabel.width(), height() /2.0f - mLabel.height()));
 	mDefaultSize = sf::Vector2f(mCurrentSprite.getLocalBounds().width, mCurrentSprite.getLocalBounds().height);
 	mActive = true;
-	
+
 }
 
 Button::Button(std::string filename) noexcept:
@@ -26,6 +27,7 @@ Button::Button(std::string filename) noexcept:
 {
 	pButtonClicked = std::make_shared<Sprite>(filename + "clicked.png");
 	mCurrentSprite = *getSprite();
+	mCurrentSprite.setOrigin(0, 0);
 
 	mLabel.setFillColor(sf::Color::Black);
 	mLabel.setStyle(sf::Text::Style::Regular);
@@ -180,6 +182,7 @@ void Button::setClicked(bool clicked)
 }
 bool Button::contains(const sf::Vector2f& position)
 {
+	auto bounds = getSprite()->getGlobalBounds();
 	return getSprite()->getGlobalBounds().contains(position);
 }
 

@@ -9,6 +9,9 @@ Label::Label()
 
 	mText.setFillColor(sf::Color::White);
 	mText.setStyle(sf::Text::Bold);
+	mText.setOrigin(0,0);
+
+	mActive = true;
 }
 
 Label::Label(std::string text, std::string fontname)
@@ -20,7 +23,9 @@ Label::Label(std::string text, std::string fontname)
 
 	mText.setFillColor(sf::Color::White);
 	mText.setStyle(sf::Text::Bold);
-	
+	mText.setOrigin(0, 0);
+
+	mActive = true;
 
 }
 
@@ -65,12 +70,19 @@ void Label::setPosition(sf::Vector2f position)
 
 Object* Label::hitTest(const sf::Vector2f mousePosition)
 {
-	return nullptr;
+	if (mActive)
+	{
+		if (contains(mousePosition))
+		{
+			return this;
+		}
+	}
+	return NULL;
 }
 
 bool Label::contains(const sf::Vector2f& position)
 {
-	return false;
+	return mText.getGlobalBounds().contains(position);
 }
 
 

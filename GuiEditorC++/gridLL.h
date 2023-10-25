@@ -20,7 +20,8 @@ public:
         float width;
         float height;
         Node(Container::Slot* data)
-            :height(0),
+            :
+            height(0),
             width(0)
         {
             _data = data;
@@ -59,7 +60,6 @@ public:
     ~GridLL()
     {
 
-        /* deref head_ref to get the real head */
         Node* current = _head;
         Node* next = nullptr;
 

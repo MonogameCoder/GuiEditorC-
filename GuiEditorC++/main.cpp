@@ -31,6 +31,8 @@ int main()
     Button bt4;
     Button bt5;
     Button bt6;
+    Button bt7;
+    Label lb2("Hello World!", "assets/Arial.ttf");
 
     Grid grid;
     sf::Vector2f gridPos = sf::Vector2f(frame.getPosition().x + frame.width(), frame.getPosition().y);
@@ -39,7 +41,8 @@ int main()
     grid.addItem(sf::Vector2i(128,0), &bt4);
     grid.addItem(sf::Vector2i(0,128), &bt5);
     grid.addItem(sf::Vector2i(128,128), &bt6);
-
+    grid.addItem(sf::Vector2i(128, 256), &bt7);
+    grid.addItem(sf::Vector2i(256, 256), &lb2);
 
     sf::Vector2i lastMousePos = sf::Mouse::getPosition(window);
 

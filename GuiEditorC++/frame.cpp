@@ -40,7 +40,6 @@ bool Frame::contains(Object& item)
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
 		Container::Slot* slot = mSlots[i];
-
 		
 		if (slot->pItem  != nullptr && slot->pItem->mActive)
 		{
