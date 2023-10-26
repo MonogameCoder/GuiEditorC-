@@ -21,6 +21,7 @@ void Grid::addItem(sf::Vector2i position, Object* item)
 	auto slot = new Slot(position, item);
 	mSlots.emplace_back(slot);
 	insert(slot);
+	mItems.UpdateLayout();
 
 }
 
@@ -69,8 +70,7 @@ bool Grid::contains(const sf::Vector2f& position)
 }
 
 void Grid::update(sf::Int32 dt)
-{
-	mItems.UpdateLayout();
+{	
 	for (int i = 0; i < mSlots.size(); i++)
 	{
 		Container::Slot* slot = mSlots[i];
@@ -83,6 +83,7 @@ void Grid::update(sf::Int32 dt)
 			slot->pItem->update(dt);
 		}
 	}
+	
 }
 
 void Grid::draw(sf::RenderWindow& window)

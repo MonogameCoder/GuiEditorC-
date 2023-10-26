@@ -83,7 +83,6 @@ Object* Label::hitTest(const sf::Vector2f mousePosition)
 
 bool Label::contains(const sf::Vector2f& position)
 {
-	//return pRect->contains((sf::Vector2i)position);
 	return mText.getGlobalBounds().contains(position);
 }
 

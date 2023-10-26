@@ -223,7 +223,7 @@ public:
             {
                 if (data->pItem->getPosition().x < temp->_data->pItem->getPosition().x)
                 {
-                    while (temp->_down != nullptr && data->pItem->getPosition().y > temp->_data->pItem->getPosition().y + temp->height)
+                    while (temp->_down != nullptr && data->pItem->getPosition().y > temp->_data->mPosition.y + temp->height)
                     {
                         temp = temp->_down;
                     }
@@ -611,7 +611,7 @@ public:
     }
     void FixToBounds()
     {
-        ResetSizes();
+       /* ResetSizes();*/
 
 
         float _totalXSize = GetColumnsTotalSize(GetWidestRow());

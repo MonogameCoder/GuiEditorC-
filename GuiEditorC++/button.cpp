@@ -6,21 +6,22 @@ Button::Button::Button():
 {
 	pButtonClicked = std::make_shared<Sprite>("assets/button0clicked.png");
 	mCurrentSprite = *getSprite();	
-	mCurrentSprite.setOrigin(0, 0);
+	
 
 	mLabel.setFillColor(sf::Color::Black);
 	mLabel.setStyle(sf::Text::Style::Regular);
 	mLabel.setFontSize(12);
 	mLabel.setPosition(sf::Vector2i(width() / 2, height() / 2));
-	
+	mDefaultSize = sf::Vector2f(mCurrentSprite.getLocalBounds().width, mCurrentSprite.getLocalBounds().height);
+
 
 	if (mLabel.width() >= mDefaultSize.x || mLabel.height() >= mDefaultSize.y)
 	{
-		resize(sf::Vector2f(mLabel.width() / mDefaultSize.x, 1 + mLabel.height() / mDefaultSize.y));
+		resize(sf::Vector2f(0.5 + mLabel.width() / mDefaultSize.x, 1 + mLabel.height() / mDefaultSize.y));
 	}
-	mLabel.setOrigin(sf::Vector2f(mLabel.width() / 2, mLabel.height() / 2));
 
-	mDefaultSize = sf::Vector2f(mCurrentSprite.getLocalBounds().width, mCurrentSprite.getLocalBounds().height);
+	mLabel.setOrigin(sf::Vector2f(mLabel.width() / 2, mLabel.height() / 2));
+	mCurrentSprite.setOrigin(0,0);
 	
 	mActive = true;
 
@@ -31,20 +32,22 @@ Button::Button(std::string filename) noexcept:
 {
 	pButtonClicked = std::make_shared<Sprite>(filename + "clicked.png");
 	mCurrentSprite = *getSprite();
-	mCurrentSprite.setOrigin(0, 0);
+	
 
 	mLabel.setFillColor(sf::Color::Black);
 	mLabel.setStyle(sf::Text::Style::Regular);
 	mLabel.setFontSize(12);
 	mLabel.setPosition(sf::Vector2i(width() / 2, height() / 2));	
+	mDefaultSize = sf::Vector2f(mCurrentSprite.getLocalBounds().width, mCurrentSprite.getLocalBounds().height);
+
 
 	if (mLabel.width() >= mDefaultSize.x || mLabel.height() >= mDefaultSize.y)
 	{
-		resize(sf::Vector2f(mLabel.width() / mDefaultSize.x, 1 + mLabel.height() / mDefaultSize.y));
+		resize(sf::Vector2f(0.5 + mLabel.width() / mDefaultSize.x, 1 + mLabel.height() / mDefaultSize.y));
 	}
 
 	mLabel.setOrigin(sf::Vector2f(mLabel.width() / 2, mLabel.height() / 2));
-	mDefaultSize = sf::Vector2f(mCurrentSprite.getLocalBounds().width, mCurrentSprite.getLocalBounds().height);
+	mCurrentSprite.setOrigin(0, 0);
 	
 	mActive = true;
 }
@@ -172,8 +175,14 @@ sf::Vector2i Button::getPosition() const
 void Button::resize(sf::Vector2f amount)
 {
 	pButtonClicked->getSprite()->setScale(amount);
-	getSprite()->setScale(amount);
+	getSprite()->setScale(amount );
 
+}
+
+void Button::resetSize()
+{
+	/*sf::Vector2f size = sf::Vector2f(defaultWidth() /getSprite()->getGlobalBounds().width, defaultHeight() / getSprite()->getGlobalBounds().height);
+	getSprite()->setScale(size);*/
 }
 
 void Button::moveObject(const sf::Vector2f amount)
