@@ -1,11 +1,8 @@
 #include "button.h"
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
 Button::Button::Button():
-	Sprite("assets/button0.png" )
-
-	
+	Sprite("assets/button0.png" )	
 {
 	pButtonClicked = std::make_shared<Sprite>("assets/button0clicked.png");
 	mCurrentSprite = *getSprite();	
@@ -30,7 +27,7 @@ Button::Button::Button():
 }
 
 Button::Button(std::string filename) noexcept:
-	Sprite(filename)
+	Sprite(filename+".png")
 {
 	pButtonClicked = std::make_shared<Sprite>(filename + "clicked.png");
 	mCurrentSprite = *getSprite();
@@ -39,14 +36,13 @@ Button::Button(std::string filename) noexcept:
 	mLabel.setFillColor(sf::Color::Black);
 	mLabel.setStyle(sf::Text::Style::Regular);
 	mLabel.setFontSize(12);
-	mLabel.setPosition(sf::Vector2i(width() / 2, height() / 2));
-
-	
+	mLabel.setPosition(sf::Vector2i(width() / 2, height() / 2));	
 
 	if (mLabel.width() >= mDefaultSize.x || mLabel.height() >= mDefaultSize.y)
 	{
 		resize(sf::Vector2f(mLabel.width() / mDefaultSize.x, 1 + mLabel.height() / mDefaultSize.y));
 	}
+
 	mLabel.setOrigin(sf::Vector2f(mLabel.width() / 2, mLabel.height() / 2));
 	mDefaultSize = sf::Vector2f(mCurrentSprite.getLocalBounds().width, mCurrentSprite.getLocalBounds().height);
 	
@@ -104,7 +100,7 @@ void Button::draw(sf::RenderWindow& window)
 	{
 		mClicked = false;
 	}
-	// draw everything here...	
+	
 	window.draw(mCurrentSprite);
 	mLabel.draw(window);
 	
@@ -157,23 +153,15 @@ Object* Button::hitTest(const sf::Vector2f mousePosition)
 
 void Button::setPosition(sf::Vector2f position)
 {
-	if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-	{
-		
-		sf::Vector2f center(mCurrentSprite.getPosition().x + width() /2, mCurrentSprite.getPosition().y + height() /2 - mLabel.height() /2);
+	sf::Vector2f center(mCurrentSprite.getPosition().x + width() / 2, mCurrentSprite.getPosition().y + height() / 2 - mLabel.height() / 2);
 
-		mCurrentSprite.setPosition(position);
-		pButtonClicked->setPosition(position);
-		mLabel.setOrigin(sf::Vector2f(mLabel.width() / 2, mLabel.height() /2));
-		auto pos = sf::Vector2f(center.x , center.y);
-		mLabel.setPosition(pos);
-		
-		
+	mCurrentSprite.setPosition(position);
+	pButtonClicked->setPosition(position);
+	mLabel.setOrigin(sf::Vector2f(mLabel.width() / 2, mLabel.height() / 2));
+	mLabel.setPosition(center);
 
-		getSprite()->setPosition(mCurrentSprite.getPosition());
+	getSprite()->setPosition(mCurrentSprite.getPosition());
 
-	
-	}	
 }
 
 sf::Vector2i Button::getPosition() const
@@ -210,7 +198,7 @@ void Button::setClicked(bool clicked)
 }
 bool Button::contains(const sf::Vector2f& position)
 {
-	return getSprite()->getGlobalBounds().contains(position);
+	return mCurrentSprite.getGlobalBounds().contains(position);
 }
 
 

@@ -1,6 +1,7 @@
 #include "sprite.h"
 #include <stdlib.h>
-using namespace std;
+
+
 Sprite::Sprite()
 {
 }
@@ -10,7 +11,7 @@ Sprite::Sprite(std::string filename) noexcept
 {
 	mActive = true;
 	loadSprite(filename);
-	pSprite = make_shared<sf::Sprite>(mTexture);
+	pSprite = std::make_shared<sf::Sprite>(mTexture);
 	pSprite->setOrigin(0, 0);
 	mDefaultSize = sf::Vector2f(pSprite->getGlobalBounds().width, pSprite->getGlobalBounds().height);
 	
@@ -30,7 +31,7 @@ Sprite::Sprite(Sprite&& rhs) noexcept
 		
 		
 	}
-	mActive = move(rhs.mActive);
+	mActive = std::move(rhs.mActive);
 	rhs.pSprite = nullptr;
 }
 
@@ -117,7 +118,7 @@ bool Sprite::contains(const sf::Vector2f& position)
 void Sprite::Setup()
 {
 }
-const shared_ptr<sf::Sprite> Sprite::getSprite() const
+const std::shared_ptr<sf::Sprite> Sprite::getSprite() const
 {
 	return pSprite;
 }

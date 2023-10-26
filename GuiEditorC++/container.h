@@ -17,7 +17,9 @@ public:
     public:
 
         Slot(sf::Vector2i position, Object* item) 
-            :pItem(nullptr)
+            :
+            pItem(nullptr),
+            mIndex(0)
         {
             mPosition = position;
            

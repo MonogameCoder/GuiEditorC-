@@ -9,22 +9,22 @@ Label::Label()
 
 	mText.setFillColor(sf::Color::White);
 	mText.setStyle(sf::Text::Bold);
-	mText.setOrigin(0,0);
-
+	mText.setOrigin(0, 0);
+	//pRect = new sf::IntRect(0, 0, mText.getGlobalBounds().width + 8, mText.getGlobalBounds().height + 8);
 	mActive = true;
 }
 
 Label::Label(std::string text, std::string fontname)
 {
-	loadFont(fontname);	
-	mText.setFont(mFont); 	
-	mText.setString(text);		
+	loadFont(fontname);
+	mText.setFont(mFont);
+	mText.setString(text);
 	mText.setCharacterSize(12);
 
 	mText.setFillColor(sf::Color::White);
 	mText.setStyle(sf::Text::Bold);
 	mText.setOrigin(0, 0);
-
+	//pRect = new sf::IntRect(0, 0, mText.getGlobalBounds().width + 8, mText.getGlobalBounds().height + 8);
 	mActive = true;
 
 }
@@ -36,11 +36,13 @@ Label::~Label()
 void Label::draw(sf::RenderWindow& window)
 {
 	window.draw(mText);
-	
+
 }
 
 void Label::update(sf::Int32 dt)
 {
+	//pRect->top = mText.getGlobalBounds().top;
+	//pRect->left = mText.getGlobalBounds().left;
 }
 
 float Label::width()
@@ -82,6 +84,7 @@ Object* Label::hitTest(const sf::Vector2f mousePosition)
 
 bool Label::contains(const sf::Vector2f& position)
 {
+	//return pRect->contains((sf::Vector2i)position);
 	return mText.getGlobalBounds().contains(position);
 }
 
@@ -128,7 +131,7 @@ void Label::moveObject(sf::Vector2f amount)
 
 void Label::loadFont(std::string fontname)
 {
-	
+
 	if (!mFont.loadFromFile(fontname))
 	{
 		exit(0);

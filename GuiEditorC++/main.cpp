@@ -53,7 +53,7 @@ int main()
         auto pos = sf::Mouse::getPosition(window);
         sf::Vector2f worldPos = window.mapPixelToCoords(pos);
         auto selected = frame.hitTest(worldPos);
-
+       
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -85,6 +85,7 @@ int main()
                         Button* btn = static_cast<Button*>(selected);
                         btn->setClicked(false);
                     }
+                    
                 }
               
             }

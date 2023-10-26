@@ -43,9 +43,10 @@ bool Frame::contains(Object& item)
 		
 		if (slot->pItem  != nullptr && slot->pItem->mActive)
 		{
+			
 			if (slot->pItem->contains(mousePosition))
 			{
-				return slot->pItem;
+				return slot->pItem;				
 			}
 		}
 	}
@@ -66,14 +67,16 @@ void Frame::update(sf::Int32 dt)
 
 		if (slot->pItem != nullptr)
 		{
-			
-			sf::Vector2i pos = pFrameBG->getPosition();
-			slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));
-			if (mMode == Mode::DYNAMIC)
+			if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			{
-				slot->mPosition = slot->pItem->getPosition();
+				sf::Vector2i pos = pFrameBG->getPosition();
+				slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));
+
+				if (mMode == Mode::DYNAMIC)
+				{
+					slot->mPosition = slot->pItem->getPosition();
+				}
 			}
-	
 			slot->pItem->update(dt);
 		}
 	}
