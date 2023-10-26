@@ -10,7 +10,7 @@ Label::Label()
 	mText.setFillColor(sf::Color::White);
 	mText.setStyle(sf::Text::Bold);
 	mText.setOrigin(0, 0);
-	//pRect = new sf::IntRect(0, 0, mText.getGlobalBounds().width + 8, mText.getGlobalBounds().height + 8);
+
 	mActive = true;
 }
 
@@ -24,7 +24,7 @@ Label::Label(std::string text, std::string fontname)
 	mText.setFillColor(sf::Color::White);
 	mText.setStyle(sf::Text::Bold);
 	mText.setOrigin(0, 0);
-	//pRect = new sf::IntRect(0, 0, mText.getGlobalBounds().width + 8, mText.getGlobalBounds().height + 8);
+
 	mActive = true;
 
 }
@@ -41,8 +41,7 @@ void Label::draw(sf::RenderWindow& window)
 
 void Label::update(sf::Int32 dt)
 {
-	//pRect->top = mText.getGlobalBounds().top;
-	//pRect->left = mText.getGlobalBounds().left;
+
 }
 
 float Label::width()

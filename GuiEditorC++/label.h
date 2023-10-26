@@ -38,7 +38,6 @@ public:
 private:
 	sf::Text mText;
 	sf::Font mFont;
-	sf::IntRect* pRect;
 
 };
 #endif
