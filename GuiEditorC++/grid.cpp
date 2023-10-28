@@ -70,22 +70,23 @@ bool Grid::contains(const sf::Vector2f& position)
 }
 
 void Grid::update(sf::Int32 dt)
-{	
+{
 	for (int i = 0; i < mSlots.size(); i++)
 	{
 		Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem != nullptr)
 		{
-
-			sf::Vector2i pos = pFrameBG->getPosition();
-			slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));
+			if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+			{
+				sf::Vector2i pos = pFrameBG->getPosition();
+				slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));
+				
+			}
 			slot->pItem->update(dt);
 		}
 	}
-	
 }
-
 void Grid::draw(sf::RenderWindow& window)
 {
 	pFrameBG->draw(window);

@@ -1,7 +1,7 @@
 #include "button.h"
 #include <SFML/Graphics.hpp>
 
-Button::Button::Button():
+Button::Button::Button() noexcept:
 	Sprite("assets/button0.png" )	
 {
 	pButtonClicked = std::make_shared<Sprite>("assets/button0clicked.png");

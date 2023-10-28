@@ -60,16 +60,38 @@ public:
     ~GridLL()
     {
 
-        Node* current = _head;
-        Node* next = nullptr;
+        Node* pivot = _head;
+        Node* column = nullptr;
+        Node* row = nullptr;
+        Node* tmp = nullptr;
 
-        while (current != nullptr)
+        while (pivot != nullptr)
         {
-            next = current->_right;         
-            delete current;
-            current = next;           
-        }
+           
+            row = pivot->_down;
+            column = pivot->_right;
 
+            if (pivot != nullptr)
+            {
+                delete pivot;
+            }
+            pivot = nullptr;
+            pivot = row;
+
+            while (column != nullptr)
+            {
+                tmp = column->_right;
+                if (column != nullptr)
+                {
+                    delete column;
+                }
+                column = nullptr;
+                column = tmp;
+                
+            }                  
+            
+        }      
+      
         _head = nullptr;
 
     }

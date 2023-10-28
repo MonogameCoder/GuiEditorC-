@@ -38,10 +38,10 @@ int main()
     sf::Vector2f gridPos = sf::Vector2f(frame.getPosition().x + frame.width(), frame.getPosition().y);
     grid.setPosition(gridPos);
     grid.addItem(sf::Vector2i(0,0), &bt3);
-    grid.addItem(sf::Vector2i(700,0), &bt4);
+    grid.addItem(sf::Vector2i(128,0), &bt4);
     grid.addItem(sf::Vector2i(0,128), &bt5);
     grid.addItem(sf::Vector2i(128,128), &bt6);
-    grid.addItem(sf::Vector2i(128, 700), &bt7);
+    grid.addItem(sf::Vector2i(128, 256), &bt7);
     grid.addItem(sf::Vector2i(256, 256), &lb2);
 
     sf::Vector2i lastMousePos = sf::Mouse::getPosition(window);
@@ -130,7 +130,6 @@ int main()
        
         frame.draw(window);
         grid.draw(window);
-        //bt3.draw(window);
         window.display();
       
     }

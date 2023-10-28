@@ -1,6 +1,6 @@
 #include "label.h"
 
-Label::Label()
+Label::Label() noexcept
 {
 	loadFont("assets/Arial.ttf");
 	mText.setFont(mFont);
@@ -14,7 +14,7 @@ Label::Label()
 	mActive = true;
 }
 
-Label::Label(std::string text, std::string fontname)
+Label::Label(std::string text, std::string fontname) noexcept
 {
 	loadFont(fontname);
 	mText.setFont(mFont);

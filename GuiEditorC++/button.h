@@ -10,7 +10,7 @@
 	class Button : public Sprite
 	{
 	public:
-		Button();
+		Button() noexcept;
 		explicit Button(std::string filename) noexcept;
 		Button(const Button& rhs);
 		Button(Button&& rhs) noexcept;

@@ -7,8 +7,8 @@
 class Label : public Object
 {
 public:
-	Label();
-	explicit Label(std::string text, std::string fontname);
+	Label() noexcept;
+	explicit Label(std::string text, std::string fontname) noexcept;
 	virtual ~Label();
 
 	//Label(const Label& rhs) = delete;
