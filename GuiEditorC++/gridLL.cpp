@@ -546,7 +546,7 @@ void GridLL::resetSizes()
                 /************************************************
                 ******** TO BE IMPLEMENTED **********************
                 *************************************************/
-                tmp->_data->pItem->resetSize();
+                //tmp->_data->pItem->resetSize();
             }
 
             tmp = tmp->_down;

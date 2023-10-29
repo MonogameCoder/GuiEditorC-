@@ -61,12 +61,15 @@ int main()
         auto pos = sf::Mouse::getPosition(window);
         sf::Vector2f worldPos = window.mapPixelToCoords(pos);
     
-        for (auto& item : uiList)
+        if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
-            selected = item->hitTest(worldPos);
-            if (selected != nullptr)
+            for (auto& item : uiList)
             {
-                break;
+                selected = item->hitTest(worldPos);
+                if (selected != nullptr)
+                {
+                    break;
+                }
             }
         }
       
@@ -101,7 +104,11 @@ int main()
             break;
             case sf::Event::MouseButtonReleased:
             {
-                if (selected != NULL)
+                pos = sf::Mouse::getPosition(window);
+                worldPos = window.mapPixelToCoords(pos);
+                auto position = sf::Vector2i(worldPos) - grid.getPosition();
+
+                if (selected != nullptr)
                 {
                     if (typeid(*selected) == typeid(Button))
                     {
@@ -110,14 +117,13 @@ int main()
                     }
                     if (selected != nullptr && grid.contains(*selected))
                     {
-                        auto position = sf::Vector2i(worldPos) - grid.getPosition();
+                       
                         grid.removeSlot(selected);      
                         grid.addItem(position, selected);                     
                     }
                     else if (selected != nullptr && frame.contains(*selected))
                     {
 
-                        auto position = sf::Vector2i(worldPos) - grid.getPosition();
                         if (typeid(*selected) == typeid(Button))
                         {
                             selected = new Button();
@@ -127,8 +133,7 @@ int main()
                             selected = new Sprite();
                         }
                         else if (typeid(*selected) == typeid(Label))
-                        {
-                            
+                        {                           
                             selected = new Label();
                         }
                         grid.addItem(position, selected);
@@ -144,21 +149,22 @@ int main()
       
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
-            sf::Vector2i currMousePos = sf::Mouse::getPosition(window);
-            if (selected != NULL)
+            pos = sf::Mouse::getPosition(window);
+           
+            if (selected != nullptr)
             {
 
                 if (typeid(*selected) == typeid(Button))
                 {
-                    static_cast<Button*>(selected)->moveObject(sf::Vector2f(currMousePos - lastMousePos));
+                    static_cast<Button*>(selected)->moveObject(sf::Vector2f(pos - lastMousePos));
                 }
                 else if (typeid(*selected) == typeid(Sprite))
                 {
-                    static_cast<Sprite*>(selected)->moveObject(sf::Vector2f(currMousePos - lastMousePos));
+                    static_cast<Sprite*>(selected)->moveObject(sf::Vector2f(pos - lastMousePos));
                 }
                 else if (typeid(*selected) == typeid(Label))
                 {
-                    static_cast<Label*>(selected)->moveObject(sf::Vector2f(currMousePos - lastMousePos));
+                    static_cast<Label*>(selected)->moveObject(sf::Vector2f(pos - lastMousePos));
                 }
 
             }
