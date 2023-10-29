@@ -10,7 +10,7 @@ Object::~Object()
 
 bool Object::operator==(const Object& rhs) const
 {
-	return rhs.mIndex  == mIndex;
+	return hashObj(&rhs) == hashObj(this);
 }
 
 bool Object::operator!=(const Object& rhs) const

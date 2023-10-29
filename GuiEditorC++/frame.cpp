@@ -30,6 +30,13 @@ void Frame::removeItem(Object& item)
 
 bool Frame::contains(Object& item)
 {
+	for (auto& obj : mSlots)
+	{
+		if (*obj->pItem == item)
+		{
+			return true;
+		}
+	}
 	return false;
 }
 

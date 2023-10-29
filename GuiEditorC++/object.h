@@ -30,5 +30,6 @@ public:
 	sf::Vector2f mDefaultSize;
 private:
 	unsigned int mIndex = 0;
+	std::hash<const Object*> hashObj;
 };
 #endif

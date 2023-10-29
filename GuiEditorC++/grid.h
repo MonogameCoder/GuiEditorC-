@@ -30,6 +30,7 @@ public:
 	}
 	void insert(Container::Slot* item);
 	virtual void addItem(sf::Vector2i position, Object* item) override;
+	void removeSlot(Object* item);
 	virtual void removeItem(Object& item) override;
 	virtual bool contains(Object& item)  override;
 	Object* hitTest(const sf::Vector2f mousePosition);

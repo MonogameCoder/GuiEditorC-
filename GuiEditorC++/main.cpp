@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 #include <iostream>
+#include <list>
+
 #include "sprite.h"
 #include "button.h"
 #include "label.h"
@@ -14,7 +16,10 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1366, 768), "My window");
     //window.setFramerateLimit(120);
     sf::Clock clock;
-    
+
+    std::list<Object*> uiList;
+    Object* selected = {};
+
     Button bt1;
     Button bt2;
     Label lb1("Hello World!", "assets/Arial.ttf");
@@ -37,12 +42,15 @@ int main()
     Grid grid;
     sf::Vector2f gridPos = sf::Vector2f(frame.getPosition().x + frame.width(), frame.getPosition().y);
     grid.setPosition(gridPos);
-    grid.addItem(sf::Vector2i(0,0), &bt3);
-    grid.addItem(sf::Vector2i(128,0), &bt4);
-    grid.addItem(sf::Vector2i(0,128), &bt5);
-    grid.addItem(sf::Vector2i(128,128), &bt6);
-    grid.addItem(sf::Vector2i(128, 256), &bt7);
-    grid.addItem(sf::Vector2i(256, 256), &lb2);
+    //grid.addItem(sf::Vector2i(0,0), &bt3);
+    //grid.addItem(sf::Vector2i(128,0), &bt4);
+    //grid.addItem(sf::Vector2i(0,128), &bt5);
+    //grid.addItem(sf::Vector2i(128,128), &bt6);
+    //grid.addItem(sf::Vector2i(128, 256), &bt7);
+    //grid.addItem(sf::Vector2i(256, 256), &lb2);
+    Button testBtn;
+    uiList.push_back(&frame);
+    uiList.push_back(&grid);
 
     sf::Vector2i lastMousePos = sf::Mouse::getPosition(window);
 
@@ -52,7 +60,16 @@ int main()
         // check all the window's events that were triggered since the last iteration of the loop
         auto pos = sf::Mouse::getPosition(window);
         sf::Vector2f worldPos = window.mapPixelToCoords(pos);
-        auto selected = frame.hitTest(worldPos);
+    
+        for (auto& item : uiList)
+        {
+            selected = item->hitTest(worldPos);
+            if (selected != nullptr)
+            {
+                break;
+            }
+        }
+      
        
         sf::Event event;
         while (window.pollEvent(event))
@@ -71,8 +88,14 @@ int main()
                     {
                         Button* btn = static_cast<Button*>(selected);
                         btn->setClicked(true);
-                        frame.removeItem(lb1);
+                        //frame.removeItem(lb1);
                     }                    
+                }
+                if (selected != nullptr && grid.contains(*selected))
+                {
+                    grid.removeItem(*selected);
+                    
+                   
                 }
             }
             break;
@@ -85,7 +108,31 @@ int main()
                         Button* btn = static_cast<Button*>(selected);
                         btn->setClicked(false);
                     }
-                    
+                    if (selected != nullptr && grid.contains(*selected))
+                    {
+                        auto position = sf::Vector2i(worldPos) - grid.getPosition();
+                        grid.removeSlot(selected);      
+                        grid.addItem(position, selected);                     
+                    }
+                    else if (selected != nullptr && frame.contains(*selected))
+                    {
+
+                        auto position = sf::Vector2i(worldPos) - grid.getPosition();
+                        if (typeid(*selected) == typeid(Button))
+                        {
+                            selected = new Button();
+                        }
+                        else if (typeid(*selected) == typeid(Sprite))
+                        {
+                            selected = new Sprite();
+                        }
+                        else if (typeid(*selected) == typeid(Label))
+                        {
+                            
+                            selected = new Label();
+                        }
+                        grid.addItem(position, selected);
+                    }
                 }
               
             }

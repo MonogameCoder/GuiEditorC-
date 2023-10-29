@@ -4,7 +4,7 @@
 Grid::Grid()
 {
 	pFrameBG = std::make_shared<Sprite>("assets/FrameEditorTX.png");
-	mItems.setRectangle(pFrameBG->getPosition().x, pFrameBG->getPosition().y, pFrameBG->width(), pFrameBG->height());
+	
 }
 
 Grid::~Grid()
@@ -25,13 +25,27 @@ void Grid::addItem(sf::Vector2i position, Object* item)
 
 }
 
+void Grid::removeSlot(Object* item)
+{
+	for (unsigned int i = 0; i < mSlots.size(); i++)
+	{
+		Container::Slot* slot = mSlots[i];
+
+		if (slot->pItem == item)
+		{
+			mSlots.erase(mSlots.begin() + i);
+			break;
+		}
+	}
+}
+
 void Grid::removeItem(Object& item)
 {
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
-		if (*mSlots[i] == item)
+		if (*mSlots[i]->pItem == item)
 		{
-			mSlots.erase(mSlots.begin() + i);
+			mItems.DeleteNodebyKey(mSlots[i]);
 			break;
 		}
 
@@ -40,6 +54,13 @@ void Grid::removeItem(Object& item)
 
 bool Grid::contains(Object& item)
 {
+	for (auto& obj : mSlots)
+	{
+		if (*obj->pItem == item)
+		{
+			return true;
+		}
+	}
 	return false;
 }
 
@@ -121,6 +142,7 @@ float Grid::height()
 void Grid::setPosition(sf::Vector2f position)
 {
 	pFrameBG->setPosition(position);
+	mItems.setRectangle(pFrameBG->getPosition().x, pFrameBG->getPosition().y, pFrameBG->width(), pFrameBG->height());
 }
 
 void Grid::moveObject(sf::Vector2f amount)

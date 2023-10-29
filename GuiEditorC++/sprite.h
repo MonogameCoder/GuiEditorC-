@@ -21,6 +21,8 @@ public:
 public:
 	virtual void draw(sf::RenderWindow& window) override;
 	virtual void update(sf::Int32 dt) override;
+	void setWidth(float width);
+	void setHeight(float height);
 	virtual float defaultWidth() override;
 	virtual float defaultHeight() override;
 	virtual float width() override;
@@ -33,12 +35,15 @@ public:
 	void Setup();	
 	const std::shared_ptr<sf::Sprite> getSprite() const;
 	void loadSprite(std::string filename);
+
 private:
 	std::shared_ptr<sf::Sprite> pSprite;
 	sf::Texture mTexture;
 
 private:
 	sf::Vector2i mPosition;
+	float mWidth;
+	float mHeight;
 
 
 

@@ -10,7 +10,7 @@ class GridLL
 public:
     struct Node
     {
-       
+
     public:
         Node* _right;
         Node* _left;
@@ -20,8 +20,7 @@ public:
         float width;
         float height;
         Node(Container::Slot* data)
-            :
-            height(0),
+            :height(0),
             width(0)
         {
             _data = data;
@@ -60,38 +59,17 @@ public:
     ~GridLL()
     {
 
-        Node* pivot = _head;
-        Node* column = nullptr;
-        Node* row = nullptr;
-        Node* tmp = nullptr;
+        /* deref head_ref to get the real head */
+        Node* current = _head;
+        Node* next = nullptr;
 
-        while (pivot != nullptr)
+        while (current != nullptr)
         {
-           
-            row = pivot->_down;
-            column = pivot->_right;
+            next = current->_right;
+            delete current;
+            current = next;
+        }
 
-            if (pivot != nullptr)
-            {
-                delete pivot;
-            }
-            pivot = nullptr;
-            pivot = row;
-
-            while (column != nullptr)
-            {
-                tmp = column->_right;
-                if (column != nullptr)
-                {
-                    delete column;
-                }
-                column = nullptr;
-                column = tmp;
-                
-            }                  
-            
-        }      
-      
         _head = nullptr;
 
     }
@@ -224,13 +202,13 @@ public:
         }
         return _max->_data->pItem->defaultHeight();
     }
-     void Insert(Container::Slot* data)
+    void Insert(Container::Slot* data)
     {
-         if (data->pItem != nullptr)
-         {
-             data->pItem->setPosition((sf::Vector2f)data->mPosition);
-         }
-         
+        if (data->pItem != nullptr)
+        {
+            data->pItem->setPosition((sf::Vector2f)data->mPosition);
+        }
+
         Node* _newNode = new Node(data);
 
         if (_head == nullptr)
@@ -243,9 +221,9 @@ public:
             Node* temp = _head;
             while (temp != nullptr)
             {
-                if (data->pItem->getPosition().x < temp->_data->pItem->getPosition().x)
+                if (data->pItem->getPosition().x < mFrameRect.getPosition().x +  temp->_data->mPosition.x)
                 {
-                    while (temp->_down != nullptr && data->pItem->getPosition().y > temp->_data->mPosition.y + temp->height)
+                    while (temp->_down != nullptr && data->pItem->getPosition().y > mFrameRect.getPosition().y +  temp->_data->mPosition.y + temp->height)
                     {
                         temp = temp->_down;
                     }
@@ -280,9 +258,9 @@ public:
 
 
                 }
-                else if (temp->_right == nullptr && data->pItem->getPosition().x >= temp->_data->pItem->getPosition().x + temp->width - MIN_SPACE)
+                else if (temp->_right == nullptr && data->pItem->getPosition().x >= mFrameRect.getPosition().x +  temp->_data->mPosition.x + temp->width - MIN_SPACE)
                 {
-                    while (temp->_down != nullptr && data->pItem->getPosition().y > temp->_data->pItem->getPosition().y + temp->height)
+                    while (temp->_down != nullptr && data->pItem->getPosition().y > mFrameRect.getPosition().y +  temp->_data->mPosition.y + temp->height)
                     {
                         temp = temp->_down;
                     }
@@ -306,14 +284,14 @@ public:
                 }
                 else
                 {
-                    if (data->pItem->getPosition().x >= temp->_data->pItem->getPosition().x - MIN_SPACE && data->pItem->getPosition().x <= temp->_data->pItem->getPosition().x + temp->width - MIN_SPACE)
+                    if (data->pItem->getPosition().x >= mFrameRect.getPosition().x +  temp->_data->mPosition.x - MIN_SPACE && data->pItem->getPosition().x <= mFrameRect.getPosition().x +  temp->_data->mPosition.x + temp->width - MIN_SPACE)
                     {
-                        while (temp->_right != nullptr && data->pItem->getPosition().x > temp->_data->pItem->getPosition().x + temp->width)
+                        while (temp->_right != nullptr && data->pItem->getPosition().x > mFrameRect.getPosition().x +  temp->_data->mPosition.x + temp->width)
                         {
                             temp = temp->_right;
                         }
 
-                        if (data->pItem->getPosition().y + data->pItem->height() <= temp->_data->pItem->getPosition().y)
+                        if (data->pItem->getPosition().y + data->pItem->height() <= mFrameRect.getPosition().y +  temp->_data->mPosition.y)
                         {
                             temp->_up = _newNode;
                             _newNode->_down = temp;
@@ -337,8 +315,8 @@ public:
                         }
                         else
                         {
-                            
-                            while (temp->_down != nullptr && data->pItem->getPosition().y > temp->_data->pItem->getPosition().y + temp->height)
+
+                            while (temp->_down != nullptr && data->pItem->getPosition().y > mFrameRect.getPosition().y +  temp->_data->mPosition.y + temp->height)
                             {
                                 temp = temp->_down;
                             }
@@ -435,8 +413,8 @@ public:
     }
     Node* CreateDummyNode(Node* current)
     {
-        Container::Slot* _dummyslot  = new Container::Slot(sf::Vector2i(),nullptr);
-        
+        Container::Slot* _dummyslot = new Container::Slot(sf::Vector2i(), nullptr);
+
         Node* _dummyNode = new Node(_dummyslot);
 
         _dummyNode->width = current->width;
@@ -581,7 +559,7 @@ public:
                     tmp->width = tmp->_data->pItem->defaultWidth();
                     /************************************************
                     ******** TO BE IMPLEMENTED **********************
-                    *************************************************/ 
+                    *************************************************/
                     tmp->_data->pItem->resetSize();
                 }
 
@@ -605,25 +583,25 @@ public:
                       /************************************************
                     ******** TO BE IMPLEMENTED **********************
                     *************************************************/
-                 /*   if (tmp._data.Item.XPolicy == UIObject.SizePolicy.EXPAND)
-                    {
-                        int _delta = GetXMax(tmp) - tmp._data.Item.Width;
+                    /*   if (tmp._data.Item.XPolicy == UIObject.SizePolicy.EXPAND)
+                       {
+                           int _delta = GetXMax(tmp) - tmp._data.Item.Width;
 
-                        if (_delta > 0)
-                        {
-                            tmp._data.Item.Resize(new Point(_delta, 0));
-                        }
+                           if (_delta > 0)
+                           {
+                               tmp._data.Item.Resize(new Point(_delta, 0));
+                           }
 
-                    }
-                    if (tmp._data.Item.YPolicy == UIObject.SizePolicy.EXPAND)
-                    {
-                        int _delta = GetYMax(tmp) - tmp._data.Item.Height;
+                       }
+                       if (tmp._data.Item.YPolicy == UIObject.SizePolicy.EXPAND)
+                       {
+                           int _delta = GetYMax(tmp) - tmp._data.Item.Height;
 
-                        if (_delta > 0)
-                        {
-                            tmp._data.Item.Resize(new Point(0, _delta));
-                        }
-                    }*/
+                           if (_delta > 0)
+                           {
+                               tmp._data.Item.Resize(new Point(0, _delta));
+                           }
+                       }*/
 
                 }
                 tmp = tmp->_down;
@@ -633,7 +611,7 @@ public:
     }
     void FixToBounds()
     {
-       /* ResetSizes();*/
+        ResetSizes();
 
 
         float _totalXSize = GetColumnsTotalSize(GetWidestRow());
@@ -1006,10 +984,10 @@ public:
     {
         Node* temp = _head;
 
-       /* if (MouseGUI.Focus == null)
-        {
-            key.Item.ResetSize();
-        }*/
+        /* if (MouseGUI.Focus == null)
+         {
+             key.Item.ResetSize();
+         }*/
         if (temp != nullptr && temp->_data == key)
         {
 
@@ -1125,8 +1103,8 @@ public:
         mFrameRect.width = width;
         mFrameRect.height = height;
     }
-    private:
-        sf::IntRect mFrameRect;
+private:
+    sf::IntRect mFrameRect;
 
-}; 
+};
 #endif // !GRIDLL

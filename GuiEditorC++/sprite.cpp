@@ -69,6 +69,16 @@ void Sprite::update(sf::Int32 dt)
 	
 }
 
+void Sprite::setWidth(float width)
+{
+	mWidth = width;
+}
+
+void Sprite::setHeight(float height)
+{
+	mHeight = height;
+}
+
 float Sprite::defaultWidth()
 {
 	return mDefaultSize.x;
@@ -81,12 +91,12 @@ float Sprite::defaultHeight()
 
 float Sprite::width()
 {
-	return pSprite->getGlobalBounds().width;
+	return pSprite == nullptr ? mWidth : pSprite->getGlobalBounds().width;
 }
 
 float Sprite::height()
 {
-	return pSprite->getGlobalBounds().height;
+	return pSprite == nullptr ? mHeight :pSprite->getGlobalBounds().height;
 }
 sf::Vector2i Sprite::getPosition() const
 {
