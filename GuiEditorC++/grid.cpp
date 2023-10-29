@@ -13,7 +13,7 @@ Grid::~Grid()
 
 void Grid::insert(Container::Slot* item)
 {
-	mItems.Insert(item);
+	mItems.insert(item);
 }
 
 void Grid::addItem(sf::Vector2i position, Object* item)
@@ -21,7 +21,7 @@ void Grid::addItem(sf::Vector2i position, Object* item)
 	auto slot = new Slot(position, item);
 	mSlots.emplace_back(slot);
 	insert(slot);
-	mItems.UpdateLayout();
+	mItems.updateLayout();
 
 }
 
@@ -45,7 +45,7 @@ void Grid::removeItem(Object& item)
 	{
 		if (*mSlots[i]->pItem == item)
 		{
-			mItems.DeleteNodebyKey(mSlots[i]);
+			mItems.deleteNodebyKey(mSlots[i]);
 			break;
 		}
 

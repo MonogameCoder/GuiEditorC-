@@ -138,6 +138,7 @@
     <ClCompile Include="container.cpp" />
     <ClCompile Include="frame.cpp" />
     <ClCompile Include="grid.cpp" />
+    <ClCompile Include="gridLL.cpp" />
     <ClCompile Include="label.cpp" />
     <ClCompile Include="label.h" />
     <ClCompile Include="main.cpp" />
