@@ -75,7 +75,7 @@ float GridLL::getXMax(Node* current)
         deleteColumn(temp);
         return 0;
     }
-    return _max->width;
+    return _max->_data->pItem->width();
 }
 
 float GridLL::getXMaxExcept(Node* current)
@@ -144,7 +144,7 @@ float GridLL::getYMax(Node* current)
         deleteRow(temp);
         return 0;
     }
-    return _max->height;
+    return _max->_data->pItem->height();
 }
 
 float GridLL::getYMaxExcept(Node* current)
@@ -181,7 +181,6 @@ float GridLL::getYMaxExcept(Node* current)
 }
 
 void GridLL::insert(Container::Slot* data)
-
 {
     if (data->pItem != nullptr)
     {
