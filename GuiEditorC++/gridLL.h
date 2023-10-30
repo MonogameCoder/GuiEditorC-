@@ -74,7 +74,7 @@ private:
     Node* createRowBelow(Node* current, Node* newNode);
     Node* rewindRows(Node* row);
     Node* rewindColumns(Node* column);
-    Node* forwardColumns(Node* column);
+
 
     void setRowsColsDim();    
     void resetSizes();

@@ -8,37 +8,47 @@ GridLL::GridLL()
 
 GridLL::~GridLL()
 {
+
+
     Node* pivot = _head;
     Node* tmp = nullptr;
-    pivot = forwardColumns(pivot);
-
-    while (pivot != nullptr)
+    if (pivot != nullptr)
     {
+        while (pivot->_right != nullptr)
+        {
+            pivot = pivot->_right;
+        }
         while (pivot != nullptr)
         {
-            tmp = pivot;   
-            pivot = pivot->_left;
-           
-            if (pivot == _head)
+            while (pivot != nullptr)
             {
-                break;
+                tmp = pivot;
+                pivot = pivot->_left;
+
+                if (pivot == _head)
+                {
+                    break;
+                }
+
+                delete tmp;
+                tmp = nullptr;
+            }
+            tmp = _head;
+            _head = _head->_down;
+            pivot = _head;
+
+            if (pivot != nullptr)
+            {
+                while (pivot->_right != nullptr)
+                {
+                    pivot = pivot->_right;
+                }
             }
 
-            delete tmp;            
+            delete tmp;
             tmp = nullptr;
+
         }
-        tmp = _head;
-        _head = _head->_down;
-        pivot = _head;
-       
-        if (pivot != nullptr)
-        {
-            pivot = forwardColumns(pivot);
-        }
-      
-        delete tmp;
-        tmp = nullptr;
-       
     }
     _head = nullptr;
 
@@ -514,16 +524,6 @@ GridLL::Node* GridLL::rewindColumns(Node* column)
         column = column->_left;
     }
     return column;
-}
-
-GridLL::Node* GridLL::forwardColumns(Node* column)
-{
-    Node* pivot = column;
-    while (pivot->_right != nullptr)
-    {
-        pivot = pivot->_right;
-    }
-    return pivot;
 }
 
 void GridLL::setRowsColsDim()
