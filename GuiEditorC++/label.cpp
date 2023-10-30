@@ -11,6 +11,8 @@ Label::Label() noexcept
 	mText.setStyle(sf::Text::Bold);
 	mText.setOrigin(0, 0);
 
+	mDefaultSize = sf::Vector2f(mText.getLocalBounds().width, mText.getLocalBounds().height);
+
 	mActive = true;
 }
 
@@ -25,6 +27,7 @@ Label::Label(std::string text, std::string fontname) noexcept
 	mText.setStyle(sf::Text::Bold);
 	mText.setOrigin(0, 0);
 
+	mDefaultSize = sf::Vector2f(mText.getLocalBounds().width, mText.getLocalBounds().height);
 	mActive = true;
 
 }
@@ -42,6 +45,16 @@ void Label::draw(sf::RenderWindow& window)
 void Label::update(sf::Int32 dt)
 {
 
+}
+
+float Label::defaultWidth()
+{
+	return mDefaultSize.x;
+}
+
+float Label::defaultHeight()
+{
+	return mDefaultSize.y;
 }
 
 float Label::width()

@@ -19,8 +19,8 @@ void Grid::insert(Container::Slot* item)
 void Grid::addItem(sf::Vector2i position, Object* item)
 {
 	auto slot = new Slot(position, item);
-	mSlots.emplace_back(slot);
 	insert(slot);
+	mSlots.push_back(slot);	
 	mItems.updateLayout();
 
 }
@@ -87,7 +87,7 @@ Object* Grid::hitTest(const sf::Vector2f mousePosition)
 
 bool Grid::contains(const sf::Vector2f& position)
 {
-	return false;
+	return pFrameBG->contains(position);
 }
 
 void Grid::update(sf::Int32 dt)
@@ -107,6 +107,7 @@ void Grid::update(sf::Int32 dt)
 			slot->pItem->update(dt);
 		}
 	}
+	
 }
 void Grid::draw(sf::RenderWindow& window)
 {

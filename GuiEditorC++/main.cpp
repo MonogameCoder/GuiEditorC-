@@ -121,7 +121,7 @@ int main()
                         grid.removeSlot(selected);      
                         grid.addItem(position, selected);                     
                     }
-                    else if (selected != nullptr && frame.contains(*selected))
+                    else if (selected != nullptr && frame.contains(*selected) && grid.contains((sf::Vector2f)selected->getPosition()))
                     {
                         if (typeid(*selected) == typeid(Button))
                         {
@@ -179,9 +179,9 @@ int main()
         clock.restart();
       
         window.clear(sf::Color::Black);
-       
-        frame.draw(window);
         grid.draw(window);
+        frame.draw(window);
+      
         window.display();
       
     }

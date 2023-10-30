@@ -19,6 +19,8 @@ public:
 public:
 	virtual void draw(sf::RenderWindow& window) override;
 	virtual void update(sf::Int32 dt) override;
+	virtual float defaultWidth() override;
+	virtual float defaultHeight() override;
 	virtual float width() override;
 	virtual float height()  override;
 	sf::Text getText() const;
