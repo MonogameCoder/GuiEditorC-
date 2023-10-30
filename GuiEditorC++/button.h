@@ -37,7 +37,7 @@
 		const Sprite getButton() const;
 		void setClicked(bool clicked);
 	private:
-		std::shared_ptr<Sprite> pButtonClicked;
+		Sprite* pButtonClicked;
 		sf::Sprite mCurrentSprite;
 		sf::Texture mTexture;
 		sf::Texture mTextureClicked;

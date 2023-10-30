@@ -17,9 +17,11 @@ Sprite::Sprite(std::string filename) noexcept
 	
 }
 
-Sprite::Sprite(const Sprite& rhs) :
-	pSprite(rhs.pSprite)
+Sprite::Sprite(const Sprite& rhs) 
 {
+	pSprite = std::make_shared<sf::Sprite>();
+	*pSprite = *rhs.pSprite;
+
 	mActive = true;
 }
 
@@ -27,11 +29,11 @@ Sprite::Sprite(Sprite&& rhs) noexcept
 {
 	if (rhs.pSprite != nullptr)
 	{
-		pSprite = move(rhs.pSprite);
+		pSprite = std::move(rhs.pSprite);
 		
 		
 	}
-	mActive = std::move(rhs.mActive);
+	
 	rhs.pSprite = nullptr;
 }
 
@@ -41,7 +43,8 @@ Sprite::~Sprite()
 
 Sprite& Sprite::operator=(const Sprite& rhs)
 {
-	pSprite = rhs.pSprite;
+	pSprite = std::make_shared<sf::Sprite>();
+	*pSprite = *rhs.pSprite;
 	return *this;
 }
 
@@ -49,7 +52,7 @@ Sprite& Sprite::operator=( Sprite&& rhs) noexcept
 {
 	if (rhs.pSprite != nullptr)
 	{
-		pSprite = move(rhs.pSprite);
+		pSprite = std::move(rhs.pSprite);
 	}
 
 	rhs.pSprite = nullptr;

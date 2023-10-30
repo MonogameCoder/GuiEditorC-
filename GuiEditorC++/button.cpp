@@ -4,7 +4,7 @@
 Button::Button::Button() noexcept:
 	Sprite("assets/button0.png" )	
 {
-	pButtonClicked = std::make_shared<Sprite>("assets/button0clicked.png");
+	pButtonClicked = new Sprite("assets/button0clicked.png");
 	mCurrentSprite = *getSprite();	
 	
 
@@ -30,7 +30,7 @@ Button::Button::Button() noexcept:
 Button::Button(std::string filename) noexcept:
 	Sprite(filename+".png")
 {
-	pButtonClicked = std::make_shared<Sprite>(filename + "clicked.png");
+	pButtonClicked = new Sprite(filename + "clicked.png");
 	mCurrentSprite = *getSprite();
 	
 
@@ -52,12 +52,14 @@ Button::Button(std::string filename) noexcept:
 	mActive = true;
 }
 
-Button::Button(const Button& rhs): 
-	Sprite(rhs),
-	pButtonClicked(rhs.pButtonClicked),
-	mCurrentSprite(rhs.mCurrentSprite),
-	mClicked(rhs.mClicked)
+Button::Button(const Button& rhs)
 {
+	pSprite = std::make_shared<sf::Sprite>();
+	*pSprite = *rhs.pSprite;
+	pButtonClicked = new Sprite();
+	*pButtonClicked = *rhs.pButtonClicked;
+	mLabel = rhs.mLabel;
+
 	mActive = true;
 }
 
@@ -68,19 +70,27 @@ Button::Button(Button&& rhs) noexcept :	Sprite(rhs)
 		pButtonClicked = std::move(rhs.pButtonClicked);
 
 	}
-	mCurrentSprite = std::move(rhs.mCurrentSprite);
-	mActive = rhs.mActive;
-	mClicked = rhs.mClicked;
+	mLabel = std::move(rhs.mLabel);
 	rhs.pButtonClicked = nullptr;
 }
 
 Button::~Button()
 {
+	if (pButtonClicked != nullptr)
+	{
+		delete pButtonClicked;
+	}
+	pButtonClicked = nullptr;
 }
 
 Button& Button::operator=(const Button& rhs)
 {
-	pButtonClicked = rhs.pButtonClicked;
+	pSprite = std::make_shared<sf::Sprite>();
+	*pSprite = *rhs.pSprite;
+	pButtonClicked = new Sprite();
+	*pButtonClicked = *rhs.pButtonClicked;
+	mLabel = rhs.mLabel;
+
 	return *this;
 }
 
@@ -88,9 +98,9 @@ Button& Button::operator=(Button&& rhs) noexcept
 {
 	if (rhs.pButtonClicked != nullptr)
 	{
-		pButtonClicked = move(rhs.pButtonClicked);
+		pButtonClicked = std::move(rhs.pButtonClicked);
 	}
-	
+	mLabel = std::move(mLabel);
 	rhs.pButtonClicked = nullptr;
 	return *this;
 }

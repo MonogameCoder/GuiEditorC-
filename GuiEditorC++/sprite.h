@@ -36,7 +36,7 @@ public:
 	const std::shared_ptr<sf::Sprite> getSprite() const;
 	void loadSprite(std::string filename);
 
-private:
+protected:
 	std::shared_ptr<sf::Sprite> pSprite;
 	sf::Texture mTexture;
 

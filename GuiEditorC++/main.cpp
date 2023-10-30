@@ -123,18 +123,17 @@ int main()
                     }
                     else if (selected != nullptr && frame.contains(*selected))
                     {
-
                         if (typeid(*selected) == typeid(Button))
                         {
-                            selected = new Button();
+                            selected =  new Button(*static_cast<Button*>(selected));
                         }
                         else if (typeid(*selected) == typeid(Sprite))
                         {
-                            selected = new Sprite();
+                            selected = new Sprite(*static_cast<Sprite*>(selected));
                         }
                         else if (typeid(*selected) == typeid(Label))
                         {                           
-                            selected = new Label();
+                            selected = new Label(*static_cast<Label*>(selected));
                         }
                         grid.addItem(position, selected);
                     }
