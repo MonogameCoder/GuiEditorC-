@@ -18,6 +18,7 @@ void Grid::insert(Container::Slot* item)
 
 void Grid::addItem(sf::Vector2i position, Object* item)
 {
+
 	auto slot = new Slot(position, item);
 	insert(slot);
 	mSlots.push_back(slot);	
@@ -27,6 +28,7 @@ void Grid::addItem(sf::Vector2i position, Object* item)
 
 void Grid::removeSlot(Object* item)
 {
+
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
 		Container::Slot* slot = mSlots[i];

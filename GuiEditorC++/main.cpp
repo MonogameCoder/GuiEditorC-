@@ -96,8 +96,7 @@ int main()
                 }
                 if (selected != nullptr && grid.contains(*selected))
                 {
-                    grid.removeItem(*selected);
-                    
+                    grid.removeItem(*selected);                 
                    
                 }
             }
@@ -107,7 +106,7 @@ int main()
                 pos = sf::Mouse::getPosition(window);
                 worldPos = window.mapPixelToCoords(pos);
                 auto position = sf::Vector2i(worldPos) - grid.getPosition();
-
+                static int index = 0;
                 if (selected != nullptr)
                 {
                     if (typeid(*selected) == typeid(Button))
@@ -125,7 +124,11 @@ int main()
                     {
                         if (typeid(*selected) == typeid(Button))
                         {
-                            selected =  new Button(*static_cast<Button*>(selected));
+                            
+                            selected = new Button(*static_cast<Button*>(selected));
+                            Button* btn = (Button*)selected;
+                            btn->setText("Button" + std::to_string(index++));
+                           
                         }
                         else if (typeid(*selected) == typeid(Sprite))
                         {

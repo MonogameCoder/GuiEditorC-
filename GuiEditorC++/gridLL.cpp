@@ -408,11 +408,13 @@ GridLL::Node* GridLL::createColumnAfter(Node* current, Node* newNode)
     {
         if (current->_right != newNode)
         {
-            Node* dummyNode = createDummyNode(current);
-            dummyNode->_right = current->_right;
-            dummyNode->_left = current;
+            Node* _dummyNode = createDummyNode(current);
+            _dummyNode->width = current->width;
+            _dummyNode->height = current->height;
+            _dummyNode->_right = current->_right;
+            _dummyNode->_left = current;
 
-            current->_right = dummyNode;
+            current->_right = _dummyNode;
 
         }
         current = current->_down;
@@ -426,18 +428,21 @@ GridLL::Node* GridLL::createColumnBefore(Node* current, Node* newNode)
     {
         if (current->_left != newNode)
         {
-            Node* dummyNode = createDummyNode(current);
+            Node* _dummyNode = createDummyNode(current);
 
-            dummyNode->_right = current;
-            dummyNode->_left = current->_left;
+            _dummyNode->width = current->width;
+            _dummyNode->height = current->height;
+
+            _dummyNode->_right = current;
+            _dummyNode->_left = current->_left;
 
 
             if (current->_left != nullptr)
             {
-                current->_left->_right = dummyNode;
+                current->_left->_right = _dummyNode;
             }
 
-            current->_left = dummyNode;
+            current->_left = _dummyNode;
 
         }
         current = current->_down;
@@ -454,7 +459,7 @@ GridLL::Node* GridLL::createRowAbove(Node* current, Node* newNode)
 
             Node* _dummyNode = createDummyNode(current);
             _dummyNode->width = current->width;
-
+            _dummyNode->height = current->height;
             _dummyNode->_down = current;
             _dummyNode->_up = current->_up;
             current->_up = _dummyNode;
@@ -475,7 +480,7 @@ GridLL::Node* GridLL::createRowBelow(Node* current, Node* newNode)
 
             Node* _dummyNode = createDummyNode(current);
             _dummyNode->width = current->width;
-
+            _dummyNode->height = current->height;
             _dummyNode->_up = current;
             _dummyNode->_down = current->_down;
 
@@ -848,12 +853,14 @@ void GridLL::rearrangeList()
 
             while (tmp->_down != nullptr)
             {
+               
                 tmp->_down->_data->mPosition = sf::Vector2i(tmp->_data->mPosition.x, tmp->_data->mPosition.y + tmp->height + MIN_SPACE);
                 tmp = tmp->_down;
             }
         }
         temp = temp->_right;
     }
+    
 }
 
 void GridLL::updateLayout()
@@ -947,7 +954,9 @@ bool GridLL::columnHasItems(Node* column)
 
 void GridLL::deleteRow(Node* row)
 {
+    Node* temp = row;
     row = rewindColumns(row);
+
     while (row != nullptr)
     {
         if (row->_up != nullptr)
@@ -960,10 +969,14 @@ void GridLL::deleteRow(Node* row)
         }
         row = row->_right;
     }
+  
+  
+  
 }
 
 void GridLL::deleteColumn(Node* column)
 {
+    Node* temp = column;
     column = rewindRows(column);
     while (column != nullptr)
     {
@@ -979,6 +992,8 @@ void GridLL::deleteColumn(Node* column)
 
         column = column->_down;
     }
+    
+   
 }
 
 void GridLL::deleteNodebyKey(Container::Slot* key)
@@ -1010,7 +1025,7 @@ void GridLL::deleteNodebyKey(Container::Slot* key)
             temp->_right->_left = _dummyNode;
         }
 
-        _head = _dummyNode;
+        //_head = _dummyNode;
 
         Node* _nextColumn = _head->_right;
         Node* _nextRow = _head->_down;
@@ -1042,10 +1057,10 @@ void GridLL::deleteNodebyKey(Container::Slot* key)
                     _dummyNode->_right = tmp->_right;
                     _dummyNode->_up = tmp->_up;
                     _dummyNode->_down = tmp->_down;
-                    _dummyNode->_data->mPosition = tmp->_data->mPosition;
-
                     _dummyNode->width = getXMaxExcept(tmp);
                     _dummyNode->height = getYMaxExcept(tmp);
+
+                    _dummyNode->_data->mPosition = tmp->_data->mPosition;
 
                     if (tmp->_left != nullptr)
                     {

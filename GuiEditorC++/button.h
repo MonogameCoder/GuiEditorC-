@@ -32,6 +32,8 @@
 		virtual sf::Vector2i getPosition() const override;
 		virtual void resize(sf::Vector2f amount) override;
 		virtual void resetSize() override;
+		void setText(std::string text);
+		const std::string getText() const;
 		void moveObject(const sf::Vector2f amount) ;
 		void Setup();
 		const Sprite getButton() const;

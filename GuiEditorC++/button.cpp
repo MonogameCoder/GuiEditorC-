@@ -195,6 +195,15 @@ void Button::resetSize()
 	getSprite()->setScale(size);*/
 }
 
+void Button::setText(std::string text)
+{
+	mLabel.setText(text);
+}
+
+const std::string Button::getText() const
+{
+	return mLabel.getText().getString();
+}
 void Button::moveObject(const sf::Vector2f amount)
 {
 	pButtonClicked->moveObject(amount);
