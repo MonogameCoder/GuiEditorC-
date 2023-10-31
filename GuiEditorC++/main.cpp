@@ -28,9 +28,9 @@ int main()
     lb1.setStyle(sf::Text::Italic);
 
     Frame frame;
-    frame.addItem(sf::Vector2i(32, 32), &bt1);
-    frame.addItem(sf::Vector2i(128, 128), &bt2);
-    frame.addItem(sf::Vector2i(256, 256), &lb1);
+    frame.addItem(vec2i(32, 32), &bt1);
+    frame.addItem(vec2i(128, 128), &bt2);
+    frame.addItem(vec2i(256, 256), &lb1);
 
     Button bt3;
     Button bt4;
@@ -43,17 +43,17 @@ int main()
     Grid grid;
     sf::Vector2f gridPos = sf::Vector2f(frame.getPosition().x + frame.width(), frame.getPosition().y);
     grid.setPosition(gridPos);
-    //grid.addItem(sf::Vector2i(0,0), &bt3);
-    //grid.addItem(sf::Vector2i(128,0), &bt4);
-    //grid.addItem(sf::Vector2i(0,128), &bt5);
-    //grid.addItem(sf::Vector2i(128,128), &bt6);
-    //grid.addItem(sf::Vector2i(128, 256), &bt7);
-    //grid.addItem(sf::Vector2i(256, 256), &lb2);
+    //grid.addItem(vec2i(0,0), &bt3);
+    //grid.addItem(vec2i(128,0), &bt4);
+    //grid.addItem(vec2i(0,128), &bt5);
+    //grid.addItem(vec2i(128,128), &bt6);
+    //grid.addItem(vec2i(128, 256), &bt7);
+    //grid.addItem(vec2i(256, 256), &lb2);
     Button testBtn;
     uiList.push_back(&frame);
     uiList.push_back(&grid);
 
-    sf::Vector2i lastMousePos = sf::Mouse::getPosition(window);
+    vec2i lastMousePos = sf::Mouse::getPosition(window);
 
     // run the program as long as the window is open
     while (window.isOpen())
@@ -106,7 +106,7 @@ int main()
             {
                 pos = sf::Mouse::getPosition(window);
                 worldPos = window.mapPixelToCoords(pos);
-                auto position = sf::Vector2i(worldPos) - grid.getPosition();
+                auto position = vec2i(worldPos) - grid.getPosition();
                 static int index = 0;
                 if (selected != nullptr)
                 {

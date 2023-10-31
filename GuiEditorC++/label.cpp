@@ -11,7 +11,7 @@ Label::Label() noexcept
 	mText.setStyle(sf::Text::Bold);
 	mText.setOrigin(0, 0);
 
-	mDefaultSize = sf::Vector2f(mText.getLocalBounds().width, mText.getLocalBounds().height);
+	mDefaultSize = vec2f(mText.getLocalBounds().width, mText.getLocalBounds().height);
 
 	mActive = true;
 }
@@ -27,7 +27,7 @@ Label::Label(std::string text, std::string fontname) noexcept
 	mText.setStyle(sf::Text::Bold);
 	mText.setOrigin(0, 0);
 
-	mDefaultSize = sf::Vector2f(mText.getLocalBounds().width, mText.getLocalBounds().height);
+	mDefaultSize = vec2f(mText.getLocalBounds().width, mText.getLocalBounds().height);
 	mActive = true;
 
 }
@@ -72,17 +72,17 @@ sf::Text Label::getText() const
 	return mText;
 }
 
-sf::Vector2i Label::getPosition() const
+vec2i Label::getPosition() const
 {
-	return (sf::Vector2i)mText.getPosition();
+	return (vec2i)mText.getPosition();
 }
 
-void Label::setPosition(sf::Vector2f position)
+void Label::setPosition(vec2f position)
 {
 	mText.setPosition(position);
 }
 
-Object* Label::hitTest(const sf::Vector2f mousePosition)
+Object* Label::hitTest(const vec2f mousePosition)
 {
 	if (mActive)
 	{
@@ -94,7 +94,7 @@ Object* Label::hitTest(const sf::Vector2f mousePosition)
 	return NULL;
 }
 
-bool Label::contains(const sf::Vector2f& position)
+bool Label::contains(const vec2f& position)
 {
 	return mText.getGlobalBounds().contains(position);
 }
@@ -120,22 +120,22 @@ void Label::setText(std::string text)
 	mText.setString(text);
 }
 
-void Label::setPosition(sf::Vector2i position)
+void Label::setPosition(vec2i position)
 {
-	mText.setPosition((sf::Vector2f)position);
+	mText.setPosition((vec2f)position);
 }
 
-void Label::setOrigin(sf::Vector2f origin)
+void Label::setOrigin(vec2f origin)
 {
 	mText.setOrigin(origin);
 }
 
-sf::Vector2f Label::getOrigin() const
+vec2f Label::getOrigin() const
 {
 	return mText.getOrigin();
 }
 
-void Label::moveObject(sf::Vector2f amount)
+void Label::moveObject(vec2f amount)
 {
 	mText.move(amount);
 }

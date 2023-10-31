@@ -16,7 +16,7 @@ void Grid::insert(Container::Slot* item)
 	mItems.insert(item);
 }
 
-void Grid::addItem(sf::Vector2i position, Object* item)
+void Grid::addItem(vec2i position, Object* item)
 {
 
 	auto slot = new Slot(position, item);
@@ -68,7 +68,7 @@ bool Grid::contains(Object& item)
 
 
 
-Object* Grid::hitTest(const sf::Vector2f mousePosition)
+Object* Grid::hitTest(const vec2f mousePosition)
 {
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
@@ -87,7 +87,7 @@ Object* Grid::hitTest(const sf::Vector2f mousePosition)
 	return NULL;
 }
 
-bool Grid::contains(const sf::Vector2f& position)
+bool Grid::contains(const vec2f& position)
 {
 	return pFrameBG->contains(position);
 }
@@ -102,8 +102,8 @@ void Grid::update(sf::Int32 dt)
 		{
 			if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			{
-				sf::Vector2i pos = pFrameBG->getPosition();
-				slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));
+				vec2i pos = pFrameBG->getPosition();
+				slot->pItem->setPosition(vec2f(pos + slot->mPosition));
 				
 			}
 			slot->pItem->update(dt);
@@ -142,13 +142,13 @@ float Grid::height()
 	return pFrameBG->getSprite()->getGlobalBounds().height;
 }
 
-void Grid::setPosition(sf::Vector2f position)
+void Grid::setPosition(vec2f position)
 {
 	pFrameBG->setPosition(position);
 	mItems.setRectangle(pFrameBG->getPosition().x, pFrameBG->getPosition().y, pFrameBG->width(), pFrameBG->height());
 }
 
-void Grid::moveObject(sf::Vector2f amount)
+void Grid::moveObject(vec2f amount)
 {
 	for (int i = 0; i < mSlots.size(); i++)
 	{
@@ -156,8 +156,8 @@ void Grid::moveObject(sf::Vector2f amount)
 
 		if (slot->pItem != nullptr)
 		{
-			sf::Vector2i pos = pFrameBG->getPosition();
-			slot->pItem->setPosition(sf::Vector2f(amount));
+			vec2i pos = pFrameBG->getPosition();
+			slot->pItem->setPosition(vec2f(amount));
 
 
 		}

@@ -30,7 +30,7 @@ public:
 	virtual Object* hitTest(const sf::Vector2f mousePosition) override;
 	virtual bool contains(const sf::Vector2f& position) override;
 	virtual void setPosition(sf::Vector2f position) override;
-	virtual sf::Vector2i getPosition() const override;
+	virtual vec2i getPosition() const override;
 	void moveObject(const sf::Vector2f amount);		
 	void Setup();	
 	const std::shared_ptr<sf::Sprite> getSprite() const;
@@ -41,7 +41,7 @@ protected:
 	sf::Texture mTexture;
 
 private:
-	sf::Vector2i mPosition;
+	vec2i mPosition;
 	float mWidth;
 	float mHeight;
 

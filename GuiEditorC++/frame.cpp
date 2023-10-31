@@ -10,7 +10,7 @@ Frame::~Frame()
 {
 }
 
-void Frame::addItem(sf::Vector2i position, Object* item)
+void Frame::addItem(vec2i position, Object* item)
 {
 	mSlots.emplace_back(new Slot(position, item));
 }
@@ -42,7 +42,7 @@ bool Frame::contains(Object& item)
 
 
 
- Object* Frame::hitTest(const sf::Vector2f mousePosition)
+ Object* Frame::hitTest(const vec2f mousePosition)
 {
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
@@ -61,7 +61,7 @@ bool Frame::contains(Object& item)
 	return NULL;
 }
 
-bool Frame::contains(const sf::Vector2f& position)
+bool Frame::contains(const vec2f& position)
 {
 	return false;
 }
@@ -76,8 +76,8 @@ void Frame::update(sf::Int32 dt)
 		{
 			if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			{
-				sf::Vector2i pos = pFrameBG->getPosition();
-				slot->pItem->setPosition(sf::Vector2f(pos + slot->mPosition));
+				vec2i pos = pFrameBG->getPosition();
+				slot->pItem->setPosition(vec2f(pos + slot->mPosition));
 
 				if (mMode == Mode::DYNAMIC)
 				{
@@ -120,12 +120,12 @@ float Frame::height()
 	return pFrameBG->getSprite()->getGlobalBounds().height;
 }
 
-void Frame::setPosition(sf::Vector2f position)
+void Frame::setPosition(vec2f position)
 {
 	pFrameBG->setPosition(position);
 }
 
-void Frame::moveObject(sf::Vector2f amount)
+void Frame::moveObject(vec2f amount)
 {
 	for (int i = 0; i < mSlots.size(); i++)
 	{
@@ -133,8 +133,8 @@ void Frame::moveObject(sf::Vector2f amount)
 
 		if (slot->pItem != nullptr)
 		{
-			sf::Vector2i pos = pFrameBG->getPosition();
-			slot->pItem->setPosition(sf::Vector2f(amount));
+			vec2i pos = pFrameBG->getPosition();
+			slot->pItem->setPosition(vec2f(amount));
 
 
 		}

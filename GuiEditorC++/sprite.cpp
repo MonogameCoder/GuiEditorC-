@@ -7,7 +7,7 @@ Sprite::Sprite()
 }
 Sprite::Sprite(std::string filename) noexcept
 	:
-	mPosition(sf::Vector2i::Vector2(0, 0)),
+	mPosition(vec2i(0, 0)),
 	mHeight(0),
 	mWidth(0)
 	 
@@ -104,9 +104,9 @@ float Sprite::height()
 {
 	return pSprite == nullptr ? mHeight :pSprite->getGlobalBounds().height;
 }
-sf::Vector2i Sprite::getPosition() const
+vec2i Sprite::getPosition() const
 {
-	return sf::Vector2i(pSprite->getPosition());
+	return vec2i(pSprite->getPosition());
 }
 void Sprite::moveObject(const sf::Vector2f amount)
 {

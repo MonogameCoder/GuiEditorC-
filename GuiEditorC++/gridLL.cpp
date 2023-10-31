@@ -25,12 +25,12 @@ GridLL::~GridLL()
             {
                 _head = tmp->_down;
             }
-          
+
             delete tmp;
             tmp = nullptr;
         }
         pivot = _head;
-       
+
     }
 
     _head = nullptr;
@@ -254,7 +254,7 @@ void GridLL::insert(Container::Slot* data)
             }
             else
             {
-                if (data->pItem->getPosition().x >= mFrameRect.getPosition().x + temp->_data->mPosition.x - MIN_SPACE && data->pItem->getPosition().x <= mFrameRect.getPosition().x + temp->_data->mPosition.x + temp->width - MIN_SPACE)
+                if (data->pItem != nullptr && data->pItem->getPosition().x >= mFrameRect.getPosition().x + temp->_data->mPosition.x - MIN_SPACE && data->pItem->getPosition().x <= mFrameRect.getPosition().x + temp->_data->mPosition.x + temp->width - MIN_SPACE)
                 {
                     while (temp->_right != nullptr && data->pItem->getPosition().x > mFrameRect.getPosition().x + temp->_data->mPosition.x + temp->width)
                     {
@@ -384,7 +384,7 @@ void GridLL::insert(Container::Slot* data)
 
 GridLL::Node* GridLL::createDummyNode(Node* current)
 {
-    Container::Slot* _dummyslot = new Container::Slot(sf::Vector2i(), nullptr);
+    Container::Slot* _dummyslot = new Container::Slot(vec2i(), nullptr);
 
     Node* _dummyNode = new Node(_dummyslot);
 
@@ -818,13 +818,13 @@ void GridLL::rearrangeList()
     Node* temp = _head;
     if (temp != nullptr)
     {
-        temp->_data->mPosition = sf::Vector2i(mFrameRect.width / 2 - temp->width / 2, mFrameRect.height / 2 - temp->height / 2);
-        temp->_data->mPosition = sf::Vector2i(temp->_data->mPosition.x - getTotalXSizeExcept(temp) / 2, mFrameRect.height / 2 - temp->height / 2);
+        temp->_data->mPosition = vec2i(mFrameRect.width / 2 - temp->width / 2, mFrameRect.height / 2 - temp->height / 2);
+        temp->_data->mPosition = vec2i(temp->_data->mPosition.x - getTotalXSizeExcept(temp) / 2, mFrameRect.height / 2 - temp->height / 2);
 
         while (temp->_right != nullptr)
         {
 
-            temp->_right->_data->mPosition = sf::Vector2i(temp->_data->mPosition.x + temp->width + MIN_SPACE, mFrameRect.height / 2 - temp->height / 2);
+            temp->_right->_data->mPosition = vec2i(temp->_data->mPosition.x + temp->width + MIN_SPACE, mFrameRect.height / 2 - temp->height / 2);
             temp = temp->_right;
         }
 
@@ -839,14 +839,14 @@ void GridLL::rearrangeList()
 
         if (tmp->_down != nullptr)
         {
-            tmp->_data->mPosition = sf::Vector2i(tmp->_data->mPosition.x, mFrameRect.height / 2 - tmp->height / 2);
+            tmp->_data->mPosition = vec2i(tmp->_data->mPosition.x, mFrameRect.height / 2 - tmp->height / 2);
 
-            tmp->_data->mPosition = sf::Vector2i(tmp->_data->mPosition.x, tmp->_data->mPosition.y - getTotalYSizeExcept(tmp) / 2);
+            tmp->_data->mPosition = vec2i(tmp->_data->mPosition.x, tmp->_data->mPosition.y - getTotalYSizeExcept(tmp) / 2);
 
             while (tmp->_down != nullptr)
             {
                
-                tmp->_down->_data->mPosition = sf::Vector2i(tmp->_data->mPosition.x, tmp->_data->mPosition.y + tmp->height + MIN_SPACE);
+                tmp->_down->_data->mPosition = vec2i(tmp->_data->mPosition.x, tmp->_data->mPosition.y + tmp->height + MIN_SPACE);
                 tmp = tmp->_down;
             }
         }
@@ -987,6 +987,7 @@ void GridLL::deleteColumn(Node* column)
     
    
 }
+
 
 void GridLL::deleteNodebyKey(Container::Slot* key)
 {

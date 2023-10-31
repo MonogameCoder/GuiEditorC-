@@ -26,15 +26,15 @@
 		virtual float height() override;
 		virtual float defaultWidth() override;
 		virtual float defaultHeight() override;
-		virtual Object* hitTest(const sf::Vector2f mousePosition) override;
-		virtual bool contains(const sf::Vector2f& position) override;
-		virtual void setPosition(sf::Vector2f position) override;
-		virtual sf::Vector2i getPosition() const override;
-		virtual void resize(sf::Vector2f amount) override;
+		virtual Object* hitTest(const vec2f mousePosition) override;
+		virtual bool contains(const vec2f& position) override;
+		virtual void setPosition(vec2f position) override;
+		virtual vec2i getPosition() const override;
+		virtual void resize(vec2f amount) override;
 		virtual void resetSize() override;
 		void setText(std::string text);
 		const std::string getText() const;
-		void moveObject(const sf::Vector2f amount) ;
+		void moveObject(const vec2f amount) ;
 		void Setup();
 		const Sprite getButton() const;
 		void setClicked(bool clicked);
@@ -44,7 +44,7 @@
 		sf::Texture mTexture;
 		sf::Texture mTextureClicked;
 		bool mClicked;
-		sf::Vector2i mPosition;
+		vec2i mPosition;
 		Label mLabel;
 		
 	};

@@ -46,12 +46,12 @@ float Object::height()
 	return 0;
 }
 
-sf::Vector2i Object::getPosition() const
+vec2i Object::getPosition() const
 {
-	return sf::Vector2i();
+	return vec2i();
 }
 
-void Object::resize(sf::Vector2f size)
+void Object::resize(vec2f size)
 {
 }
 

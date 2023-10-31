@@ -24,18 +24,18 @@ public:
 	virtual float width() override;
 	virtual float height()  override;
 	sf::Text getText() const;
-	virtual sf::Vector2i getPosition() const override;
-	virtual void setPosition(sf::Vector2f position) override;
-	virtual Object* hitTest(const sf::Vector2f mousePosition) override;
-	virtual bool contains(const sf::Vector2f& position) override;
-	void moveObject(const sf::Vector2f amount);
+	virtual vec2i getPosition() const override;
+	virtual void setPosition(vec2f position) override;
+	virtual Object* hitTest(const vec2f mousePosition) override;
+	virtual bool contains(const vec2f& position) override;
+	void moveObject(const vec2f amount);
 	void setFontSize(int size);
 	void setFillColor(sf::Color color);
 	void setStyle(sf::Text::Style style);
 	void setText(std::string text);
-	void setPosition(sf::Vector2i position);
-	void setOrigin(sf::Vector2f origin);
-	sf::Vector2f getOrigin() const;
+	void setPosition(vec2i position);
+	void setOrigin(vec2f origin);
+	vec2f getOrigin() const;
 	void loadFont(std::string fontname);
 private:
 	sf::Text mText;

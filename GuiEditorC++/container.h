@@ -16,7 +16,7 @@ public:
     {
     public:
 
-        Slot(sf::Vector2i position, Object* item) 
+        Slot(vec2i position, Object* item) 
             :
             pItem(nullptr),
             mIndex(0)
@@ -42,7 +42,7 @@ public:
             return pItem == &rhs;
         }
     public:
-        sf::Vector2i mPosition;
+        vec2i mPosition;
         Object* pItem;
     public:
         unsigned int mIndex;
@@ -52,7 +52,7 @@ public:
    
 
 public:
-    virtual void addItem(sf::Vector2i position, Object* item) = 0;
+    virtual void addItem(vec2i position, Object* item) = 0;
     virtual void removeItem(Object& item) = 0;
     virtual bool contains(Object& item) = 0;
  
@@ -63,7 +63,6 @@ public:
 
 protected:
     std::vector<Slot*> mSlots;
-    std::list<Slot> mChildren;
     std::shared_ptr<Sprite> pFrameBG;
 
 };
