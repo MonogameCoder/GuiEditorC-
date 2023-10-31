@@ -30,7 +30,7 @@ void Frame::removeItem(Object& item)
 
 bool Frame::contains(Object& item)
 {
-	for (auto& obj : mSlots)
+	for (const auto& obj : mSlots)
 	{
 		if (*obj->pItem == item)
 		{
@@ -46,7 +46,7 @@ bool Frame::contains(Object& item)
 {
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = mSlots[i];
+		const Container::Slot* slot = mSlots[i];
 		
 		if (slot->pItem  != nullptr && slot->pItem->mActive)
 		{
@@ -94,7 +94,7 @@ void Frame::draw(sf::RenderWindow& window)
 	pFrameBG->draw(window);
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = mSlots[i];
+		const Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem != nullptr)
 		{
@@ -129,7 +129,7 @@ void Frame::moveObject(sf::Vector2f amount)
 {
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = mSlots[i];
+		const Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem != nullptr)
 		{

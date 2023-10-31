@@ -1,57 +1,39 @@
 #include "gridLL.h"
 
 GridLL::GridLL()
-
 {
-    _head = nullptr;
 }
 
 GridLL::~GridLL()
 {
-
-
     Node* pivot = _head;
     Node* tmp = nullptr;
-    if (pivot != nullptr)
+
+    while (pivot != nullptr)
     {
         while (pivot->_right != nullptr)
         {
             pivot = pivot->_right;
         }
+
         while (pivot != nullptr)
         {
-            while (pivot != nullptr)
+            tmp = pivot;
+            pivot = pivot->_left;
+
+            if (tmp == _head)
             {
-                tmp = pivot;
-                pivot = pivot->_left;
-
-                if (pivot == _head)
-                {
-                    break;
-                }
-
-                delete tmp;
-                tmp = nullptr;
+                _head = tmp->_down;
             }
-            tmp = _head;
-            _head = _head->_down;
-            pivot = _head;
-
-            if (pivot != nullptr)
-            {
-                while (pivot->_right != nullptr)
-                {
-                    pivot = pivot->_right;
-                }
-            }
-
+          
             delete tmp;
             tmp = nullptr;
-
         }
+        pivot = _head;
+       
     }
-    _head = nullptr;
 
+    _head = nullptr;
 }
 
 float GridLL::getXMax(Node* current)

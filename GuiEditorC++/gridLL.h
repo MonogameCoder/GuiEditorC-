@@ -46,7 +46,7 @@ public:
         }
     };
 private:
-    Node* _head;
+    Node* _head = nullptr;
     const float MIN_SPACE = 7;
     const float ONE_PER = 0.01f;
     const float TWO_PER = 0.02f;

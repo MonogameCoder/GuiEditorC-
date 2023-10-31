@@ -31,7 +31,7 @@ void Grid::removeSlot(Object* item)
 
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = mSlots[i];
+		const Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem == item)
 		{
@@ -56,7 +56,7 @@ void Grid::removeItem(Object& item)
 
 bool Grid::contains(Object& item)
 {
-	for (auto& obj : mSlots)
+	for (const auto& obj : mSlots)
 	{
 		if (*obj->pItem == item)
 		{
@@ -72,7 +72,7 @@ Object* Grid::hitTest(const sf::Vector2f mousePosition)
 {
 	for (unsigned int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = mSlots[i];
+		const Container::Slot* slot = mSlots[i];
 
 
 		if (slot->pItem != nullptr && slot->pItem->mActive)
@@ -96,7 +96,7 @@ void Grid::update(sf::Int32 dt)
 {
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = mSlots[i];
+		const Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem != nullptr)
 		{
@@ -116,7 +116,7 @@ void Grid::draw(sf::RenderWindow& window)
 	pFrameBG->draw(window);
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = mSlots[i];
+		const Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem != nullptr)
 		{
@@ -152,7 +152,7 @@ void Grid::moveObject(sf::Vector2f amount)
 {
 	for (int i = 0; i < mSlots.size(); i++)
 	{
-		Container::Slot* slot = mSlots[i];
+		const Container::Slot* slot = mSlots[i];
 
 		if (slot->pItem != nullptr)
 		{
