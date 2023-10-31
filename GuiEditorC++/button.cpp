@@ -54,13 +54,7 @@ Button::Button(std::string filename) noexcept:
 
 Button::Button(const Button& rhs)
 {
-	pSprite = std::make_shared<sf::Sprite>();
-	*pSprite = *rhs.pSprite;
-	pButtonClicked = new Sprite();
-	*pButtonClicked = *rhs.pButtonClicked;
-	mLabel = rhs.mLabel;
-
-	mActive = true;
+	*this = rhs;
 }
 
 Button::Button(Button&& rhs) noexcept :	Sprite(rhs)
@@ -76,19 +70,14 @@ Button::Button(Button&& rhs) noexcept :	Sprite(rhs)
 
 Button::~Button()
 {
-	if (pButtonClicked != nullptr)
-	{
-		delete pButtonClicked;
-	}
+	delete pButtonClicked;
 	pButtonClicked = nullptr;
 }
 
 Button& Button::operator=(const Button& rhs)
 {
-	pSprite = std::make_shared<sf::Sprite>();
-	*pSprite = *rhs.pSprite;
-	pButtonClicked = new Sprite();
-	*pButtonClicked = *rhs.pButtonClicked;
+	pSprite = std::make_shared<sf::Sprite>(*rhs.pSprite);
+	pButtonClicked = new Sprite(*rhs.pButtonClicked);
 	mLabel = rhs.mLabel;
 
 	return *this;

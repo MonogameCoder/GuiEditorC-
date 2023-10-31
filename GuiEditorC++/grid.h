@@ -10,23 +10,23 @@ public:
 	Grid();
 	~Grid();
 
-	Slot* operator[](int index)
+	const Slot& operator[](int index)
 	{
 		if (index >= 0)
-			return mSlots.at(index);
-		return  mSlots[0];
+			return *mSlots[index];
+		return  *mSlots[0];
 	}
 
-	Slot* operator[](Object& item)
+	const Slot& operator[](Object& item)
 	{
 		for (unsigned int i = 0; i < mSlots.size(); i++)
 		{
 			if (*mSlots[i] == item)
 			{
-				return mSlots[i];
+				return *mSlots[i];
 			}
 		}
-		return mSlots[0];
+		return *mSlots[0];
 	}
 	void insert(Container::Slot* item);
 	virtual void addItem(sf::Vector2i position, Object* item) override;

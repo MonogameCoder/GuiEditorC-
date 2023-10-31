@@ -6,7 +6,10 @@ Sprite::Sprite()
 {
 }
 Sprite::Sprite(std::string filename) noexcept
-	: mPosition(sf::Vector2i::Vector2(0, 0))
+	:
+	mPosition(sf::Vector2i::Vector2(0, 0)),
+	mHeight(0),
+	mWidth(0)
 	 
 {
 	mActive = true;
@@ -18,20 +21,21 @@ Sprite::Sprite(std::string filename) noexcept
 }
 
 Sprite::Sprite(const Sprite& rhs) 
+	:
+	mHeight(rhs.mHeight),
+	mWidth(rhs.mWidth)
 {
-	pSprite = std::make_shared<sf::Sprite>();
-	*pSprite = *rhs.pSprite;
-
-	mActive = true;
+	*this = rhs;
 }
 
 Sprite::Sprite(Sprite&& rhs) noexcept
+	:
+	mHeight(rhs.mHeight), 
+	mWidth(rhs.mWidth)
 {
 	if (rhs.pSprite != nullptr)
 	{
-		pSprite = std::move(rhs.pSprite);
-		
-		
+		pSprite = std::move(rhs.pSprite);		
 	}
 	
 	rhs.pSprite = nullptr;
@@ -42,9 +46,8 @@ Sprite::~Sprite()
 }
 
 Sprite& Sprite::operator=(const Sprite& rhs)
-{
-	pSprite = std::make_shared<sf::Sprite>();
-	*pSprite = *rhs.pSprite;
+{	
+	pSprite = std::make_shared<sf::Sprite>(*rhs.pSprite);
 	return *this;
 }
 

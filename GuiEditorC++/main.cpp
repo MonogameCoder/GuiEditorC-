@@ -26,9 +26,9 @@ int main()
     lb1.setFontSize(22);
     lb1.setFillColor(sf::Color::Yellow);
     lb1.setStyle(sf::Text::Italic);
-  
+
     Frame frame;
-    frame.addItem(sf::Vector2i(32, 32),&bt1);
+    frame.addItem(sf::Vector2i(32, 32), &bt1);
     frame.addItem(sf::Vector2i(128, 128), &bt2);
     frame.addItem(sf::Vector2i(256, 256), &lb1);
 
@@ -37,7 +37,8 @@ int main()
     Button bt5;
     Button bt6;
     Button bt7;
-    Label lb2("Hello World!", "assets/Arial.ttf");
+    bt7 = bt6;
+    Label lb2{ "Hello World!", "assets/Arial.ttf" };
 
     Grid grid;
     sf::Vector2f gridPos = sf::Vector2f(frame.getPosition().x + frame.width(), frame.getPosition().y);

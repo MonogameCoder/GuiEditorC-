@@ -34,11 +34,7 @@ public:
         } 
         ~Slot()
         {
-            if (pItem != nullptr)
-            {
-                delete pItem;
-            }
-           
+            delete pItem;
             pItem = nullptr;
         }
         bool operator==(const Object& rhs) const

@@ -191,7 +191,7 @@ void GridLL::insert(Container::Slot* data)
         Node* temp = _head;
         while (temp != nullptr)
         {
-            if (data->pItem->getPosition().x < mFrameRect.getPosition().x + temp->_data->mPosition.x)
+            if (data->pItem != nullptr && data->pItem->getPosition().x < mFrameRect.getPosition().x + temp->_data->mPosition.x)
             {
                 while (temp->_down != nullptr && data->pItem->getPosition().y > mFrameRect.getPosition().y + temp->_data->mPosition.y + temp->height)
                 {
