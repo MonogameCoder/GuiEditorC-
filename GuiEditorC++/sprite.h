@@ -31,8 +31,7 @@ public:
 	virtual bool contains(const sf::Vector2f& position) override;
 	virtual void setPosition(sf::Vector2f position) override;
 	virtual vec2i getPosition() const override;
-	void moveObject(const sf::Vector2f amount);		
-	void Setup();	
+	virtual void moveObject(const sf::Vector2f amount) override;		
 	const std::shared_ptr<sf::Sprite> getSprite() const;
 	void loadSprite(std::string filename);
 

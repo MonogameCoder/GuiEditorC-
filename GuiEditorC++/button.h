@@ -34,8 +34,7 @@
 		virtual void resetSize() override;
 		void setText(std::string text);
 		const std::string getText() const;
-		void moveObject(const vec2f amount) ;
-		void Setup();
+		virtual void moveObject(const vec2f amount) override;
 		const Sprite getButton() const;
 		void setClicked(bool clicked);
 	private:

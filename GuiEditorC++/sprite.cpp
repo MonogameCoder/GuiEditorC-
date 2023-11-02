@@ -131,9 +131,7 @@ bool Sprite::contains(const sf::Vector2f& position)
 {	
 	return pSprite->getGlobalBounds().contains(position);
 }
-void Sprite::Setup()
-{
-}
+
 const std::shared_ptr<sf::Sprite> Sprite::getSprite() const
 {
 	return pSprite;

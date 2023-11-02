@@ -200,9 +200,6 @@ void Button::moveObject(const vec2f amount)
 	mLabel.moveObject(amount);
 }
 
-void Button::Setup()
-{
-}
 
 const Sprite Button::getButton() const
 {

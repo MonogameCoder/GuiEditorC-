@@ -21,6 +21,7 @@ public:
 	virtual bool contains(const vec2f& position) = 0;
 	virtual void setPosition(vec2f position) = 0;
 	virtual vec2i getPosition() const;
+	virtual void moveObject(const vec2f position) = 0;
 	virtual void resize(vec2f amount);
 	virtual void resetSize();
 	//virtual void moveObject(const sf::Vector2f amount)  = 0;

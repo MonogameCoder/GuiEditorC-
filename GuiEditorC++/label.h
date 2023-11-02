@@ -28,7 +28,7 @@ public:
 	virtual void setPosition(vec2f position) override;
 	virtual Object* hitTest(const vec2f mousePosition) override;
 	virtual bool contains(const vec2f& position) override;
-	void moveObject(const vec2f amount);
+	virtual void moveObject(const vec2f amount) override;
 	void setFontSize(int size);
 	void setFillColor(sf::Color color);
 	void setStyle(sf::Text::Style style);

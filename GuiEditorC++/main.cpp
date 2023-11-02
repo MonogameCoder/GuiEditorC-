@@ -9,6 +9,13 @@
 #include "frame.h"
 #include "grid.h"
 
+template <typename T>
+Object* makeObject(T* obj)
+{
+    T = new T();
+    T = *obj;
+    return (Object*)T ;
+}
 
 int main()
 {
@@ -37,30 +44,24 @@ int main()
     Button bt5;
     Button bt6;
     Button bt7;
-    bt7 = bt6;
     Label lb2{ "Hello World!", "assets/Arial.ttf" };
 
     Grid grid;
-    sf::Vector2f gridPos = sf::Vector2f(frame.getPosition().x + frame.width(), frame.getPosition().y);
+    vec2f gridPos = vec2f(frame.getPosition().x + frame.width(), frame.getPosition().y);
     grid.setPosition(gridPos);
-    //grid.addItem(vec2i(0,0), &bt3);
-    //grid.addItem(vec2i(128,0), &bt4);
-    //grid.addItem(vec2i(0,128), &bt5);
-    //grid.addItem(vec2i(128,128), &bt6);
-    //grid.addItem(vec2i(128, 256), &bt7);
-    //grid.addItem(vec2i(256, 256), &lb2);
-    Button testBtn;
+   
     uiList.push_back(&frame);
     uiList.push_back(&grid);
 
     vec2i lastMousePos = sf::Mouse::getPosition(window);
+    
 
     // run the program as long as the window is open
     while (window.isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop
         auto pos = sf::Mouse::getPosition(window);
-        sf::Vector2f worldPos = window.mapPixelToCoords(pos);
+        vec2f worldPos = window.mapPixelToCoords(pos);
     
         if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
@@ -92,7 +93,6 @@ int main()
                     {
                         Button* btn = static_cast<Button*>(selected);
                         btn->setClicked(true);
-                        //frame.removeItem(lb1);
                     }                    
                 }
                 if (selected != nullptr && grid.contains(*selected))
@@ -121,15 +121,12 @@ int main()
                         grid.removeSlot(selected);      
                         grid.addItem(position, selected);                     
                     }
-                    else if (selected != nullptr && frame.contains(*selected) && grid.contains((sf::Vector2f)selected->getPosition()))
+                    else if (selected != nullptr && frame.contains(*selected) && grid.contains((vec2f)selected->getPosition()))
                     {
                         if (typeid(*selected) == typeid(Button))
-                        {
-                            
+                        {                            
                             selected = new Button(*static_cast<Button*>(selected));
-                            Button* btn = (Button*)selected;
-                            btn->setText("Button" + std::to_string(index++));
-                           
+                           ((Button*)selected)->setText("Button" + std::to_string(index++));    
                         }
                         else if (typeid(*selected) == typeid(Sprite))
                         {
@@ -139,6 +136,7 @@ int main()
                         {                           
                             selected = new Label(*static_cast<Label*>(selected));
                         }
+                        
                         grid.addItem(position, selected);
                     }
                 }
@@ -153,28 +151,12 @@ int main()
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
             pos = sf::Mouse::getPosition(window);
-           
+
             if (selected != nullptr)
             {
-
-                if (typeid(*selected) == typeid(Button))
-                {
-                    static_cast<Button*>(selected)->moveObject(sf::Vector2f(pos - lastMousePos));
-                }
-                else if (typeid(*selected) == typeid(Sprite))
-                {
-                    static_cast<Sprite*>(selected)->moveObject(sf::Vector2f(pos - lastMousePos));
-                }
-                else if (typeid(*selected) == typeid(Label))
-                {
-                    static_cast<Label*>(selected)->moveObject(sf::Vector2f(pos - lastMousePos));
-                }
-
+                selected->moveObject(vec2f(pos - lastMousePos));
             }
         }
-       
-       
-      
 
         lastMousePos = sf::Mouse::getPosition(window);
       
@@ -189,6 +171,8 @@ int main()
         window.display();
       
     }
-   
+    delete selected;
+    selected = nullptr;
+
     return 0;
 }
