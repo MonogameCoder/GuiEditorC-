@@ -91,7 +91,7 @@ float GridLL::getXMaxExcept(Node* current)
                 {
                     _max = temp;
                 }
-                if (temp->_data->pItem->defaultWidth() > _max->_data->pItem->defaultWidth())
+                if (temp->width > _max->width)
                 {
                     _max = temp;
                 }
@@ -104,7 +104,7 @@ float GridLL::getXMaxExcept(Node* current)
     {
         _max = current;
     }
-    return _max->_data->pItem->defaultWidth();
+    return _max->width;
 }
 float GridLL::getYMax(Node* current)
 
@@ -162,7 +162,7 @@ float GridLL::getYMaxExcept(Node* current)
                 {
                     _max = temp;
                 }
-                if (temp->_data->pItem->defaultHeight() > _max->_data->pItem->defaultHeight())
+                if (temp->height > _max->height)
                 {
                     _max = temp;
                 }
@@ -824,12 +824,12 @@ void GridLL::rearrangeList()
     Node* temp = _head;
     if (temp != nullptr)
     {
-        temp->_data->mPosition = vec2i(mFrameRect.width / 2 - temp->width / 2, mFrameRect.height / 2 - temp->height / 2);
-        temp->_data->mPosition = vec2i(temp->_data->mPosition.x - getTotalXSizeExcept(temp) / 2, mFrameRect.height / 2 - temp->height / 2);
+        temp->_data->mPosition = vec2i(mFrameRect.width / 2 - getXMax(temp) / 2, mFrameRect.height / 2 - getYMax(temp) / 2);
+        temp->_data->mPosition = vec2i(temp->_data->mPosition.x - getTotalXSizeExcept(temp) / 2, mFrameRect.height / 2 - getYMax(temp) / 2);
 
         while (temp->_right != nullptr)
         {
-            temp->_right->_data->mPosition = vec2i(temp->_data->mPosition.x + getXMax(temp) + MIN_SPACE, mFrameRect.height / 2 - temp->height / 2);
+            temp->_right->_data->mPosition = vec2i(temp->_data->mPosition.x + getXMax(temp) + MIN_SPACE, mFrameRect.height / 2 - getYMax(temp) / 2);
             temp = temp->_right;
         }
     }
@@ -843,7 +843,7 @@ void GridLL::rearrangeList()
 
         if (tmp->_down != nullptr)
         {
-            tmp->_data->mPosition = vec2i(tmp->_data->mPosition.x, mFrameRect.height / 2 - tmp->height / 2);
+            tmp->_data->mPosition = vec2i(tmp->_data->mPosition.x, mFrameRect.height / 2 - getYMax(tmp) / 2);
 
             tmp->_data->mPosition = vec2i(tmp->_data->mPosition.x, tmp->_data->mPosition.y - getTotalYSizeExcept(tmp) / 2);
 
@@ -1022,7 +1022,7 @@ void GridLL::deleteNodebyKey(Container::Slot* key)
             temp->_right->_left = _dummyNode;
         }
 
-        //_head = _dummyNode;
+       // _head = _dummyNode;
 
         Node* _nextColumn = _head->_right;
         Node* _nextRow = _head->_down;
