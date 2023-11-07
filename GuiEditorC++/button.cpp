@@ -78,6 +78,7 @@ Button& Button::operator=(const Button& rhs)
 {
 	pSprite = std::make_shared<sf::Sprite>(*rhs.pSprite);
 	pButtonClicked = new Sprite(*rhs.pButtonClicked);
+	mDefaultSize = rhs.mDefaultSize;
 	mLabel = rhs.mLabel;
 
 	return *this;

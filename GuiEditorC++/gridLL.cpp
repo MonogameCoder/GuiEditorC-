@@ -49,12 +49,17 @@ float GridLL::getXMax(Node* current)
             if (_max == nullptr)
             {
                 _max = temp;
+            
+                _max->width = temp->_data->pItem->width();
             }
-            if (temp->_data->pItem->defaultWidth() > _max->_data->pItem->defaultWidth())
+            if (temp->width > _max->width)
             {
                 _max = temp;
+               
+                _max->width = temp->_data->pItem->width();
             }
         }
+     
         temp = temp->_down;
     }
     if (_max == nullptr)
@@ -67,11 +72,10 @@ float GridLL::getXMax(Node* current)
         deleteColumn(temp);
         return 0;
     }
-    return _max->_data->pItem->width();
+    return _max->width;
 }
 
 float GridLL::getXMaxExcept(Node* current)
-
 {
     Node* temp = current;
     temp = rewindRows(temp);
@@ -102,14 +106,12 @@ float GridLL::getXMaxExcept(Node* current)
     }
     return _max->_data->pItem->defaultWidth();
 }
-
 float GridLL::getYMax(Node* current)
 
 {
     Node* temp = current;
     temp = rewindColumns(temp);
     Node* _max = nullptr;
-
 
     while (temp != nullptr)
     {
@@ -118,12 +120,16 @@ float GridLL::getYMax(Node* current)
             if (_max == nullptr)
             {
                 _max = temp;
+                _max->height = temp->_data->pItem->height();
+                
             }
-            if (temp->_data->pItem->defaultHeight() > _max->_data->pItem->defaultHeight())
+            if (temp->height > _max->height)
             {
                 _max = temp;
+                _max->height = temp->_data->pItem->height();
+             
             }
-        }
+        }      
         temp = temp->_right;
     }
     if (_max == nullptr)
@@ -136,7 +142,7 @@ float GridLL::getYMax(Node* current)
         deleteRow(temp);
         return 0;
     }
-    return _max->_data->pItem->height();
+    return _max->height;
 }
 
 float GridLL::getYMaxExcept(Node* current)
@@ -520,9 +526,9 @@ void GridLL::setRowsColsDim()
             tmp->height = getYMax(tmp);
             tmp->width = getXMax(tmp);
 
-            tmp = tmp->_down;
+            tmp = tmp->_right;
         }
-        temp = temp->_right;
+        temp = temp->_down;
     }
 
 }
@@ -823,11 +829,9 @@ void GridLL::rearrangeList()
 
         while (temp->_right != nullptr)
         {
-
-            temp->_right->_data->mPosition = vec2i(temp->_data->mPosition.x + temp->width + MIN_SPACE, mFrameRect.height / 2 - temp->height / 2);
+            temp->_right->_data->mPosition = vec2i(temp->_data->mPosition.x + getXMax(temp) + MIN_SPACE, mFrameRect.height / 2 - temp->height / 2);
             temp = temp->_right;
         }
-
     }
 
     temp = _head;
@@ -845,14 +849,14 @@ void GridLL::rearrangeList()
 
             while (tmp->_down != nullptr)
             {
-               
-                tmp->_down->_data->mPosition = vec2i(tmp->_data->mPosition.x, tmp->_data->mPosition.y + tmp->height + MIN_SPACE);
+
+                tmp->_down->_data->mPosition = vec2i(tmp->_data->mPosition.x, tmp->_data->mPosition.y + getYMax(tmp) + MIN_SPACE);
                 tmp = tmp->_down;
             }
         }
         temp = temp->_right;
     }
-    
+
 }
 
 void GridLL::updateLayout()
@@ -961,9 +965,9 @@ void GridLL::deleteRow(Node* row)
         }
         row = row->_right;
     }
-  
-  
-  
+
+
+
 }
 
 void GridLL::deleteColumn(Node* column)
@@ -984,8 +988,8 @@ void GridLL::deleteColumn(Node* column)
 
         column = column->_down;
     }
-    
-   
+
+
 }
 
 
@@ -1112,5 +1116,3 @@ void GridLL::setRectangle(int left, int top, int width, int height)
     mFrameRect.width = width;
     mFrameRect.height = height;
 }
-
-
