@@ -1022,7 +1022,7 @@ void GridLL::deleteNodebyKey(Container::Slot* key)
             temp->_right->_left = _dummyNode;
         }
 
-       // _head = _dummyNode;
+        _head = _dummyNode;
 
         Node* _nextColumn = _head->_right;
         Node* _nextRow = _head->_down;
